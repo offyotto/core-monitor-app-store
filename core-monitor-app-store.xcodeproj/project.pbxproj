@@ -1,0 +1,463 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		19F9935857087251F755741F /* SystemSnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA28D0E4C5F15D985F26D50 /* SystemSnapshotStore.swift */; };
+		1A6ABBA8498E476E9EA3B2A1 /* WeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C347C77E07642C9837DD961 /* WeatherStore.swift */; };
+		4431A8896A7583941656FF90 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1781C04675143AB40414312E /* Localizable.xcstrings */; };
+		11E0A1340CF948DEB9D00002 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 11E0A1340CF948DEB9D00001 /* InfoPlist.xcstrings */; };
+		49FDB6E2162ED586DB201116 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251EA88365111A46E4FACB31 /* Cocoa.framework */; };
+		6279406FD65234EDD7024B8F /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6744ACE404CF7CFE21EE6D1C /* MetricCard.swift */; };
+		86553CF66B5906BACE6442AF /* CoreMonitorAppStoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51439CFA5E7AE9636804CFB0 /* CoreMonitorAppStoreApp.swift */; };
+		9A6096331AD50E614B2AC47A /* SystemSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5DF2618E0F7521843221E1 /* SystemSnapshot.swift */; };
+		A6EFCD08C93643E6A648B4BB /* AppleSiliconMacCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A05A54D81B48DDB3661DAB /* AppleSiliconMacCatalog.swift */; };
+		AE69B515DB58866FD97D54F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D867A949B578F41B6C6B078 /* Assets.xcassets */; };
+		BB7C58D0C84FE3F08CB5511A /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2C03B1189E4E78B1C737F1 /* DashboardView.swift */; };
+		BF96553198DBF9D3972F1C5E /* PublicSystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EED4BAC3AB2A52A50C0C28 /* PublicSystemMonitor.swift */; };
+		F61F81D0EEBE237C09D3285C /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD01C702C9C5A7AF0822B0 /* MenuBarContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0DA28D0E4C5F15D985F26D50 /* SystemSnapshotStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SystemSnapshotStore.swift; sourceTree = "<group>"; };
+		11E0A1340CF948DEB9D00001 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		10504D3FC4A2F14C05EC4B0E /* core-monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "core-monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1781C04675143AB40414312E /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		24F9B8D34E3BE3014C5CA90F /* PRIVACY_POLICY.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = PRIVACY_POLICY.md; sourceTree = "<group>"; };
+		251EA88365111A46E4FACB31 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		343883E204DB3D6F0C3104CD /* APP_STORE_READINESS_CHECKLIST.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = APP_STORE_READINESS_CHECKLIST.md; sourceTree = "<group>"; };
+		42EED4BAC3AB2A52A50C0C28 /* PublicSystemMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PublicSystemMonitor.swift; sourceTree = "<group>"; };
+		51439CFA5E7AE9636804CFB0 /* CoreMonitorAppStoreApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoreMonitorAppStoreApp.swift; sourceTree = "<group>"; };
+		5D867A949B578F41B6C6B078 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6744ACE404CF7CFE21EE6D1C /* MetricCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MetricCard.swift; sourceTree = "<group>"; };
+		758A4BC4F7C6052609B9A729 /* APP_STORE_AUDIT.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = APP_STORE_AUDIT.md; sourceTree = "<group>"; };
+		7B5DF2618E0F7521843221E1 /* SystemSnapshot.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SystemSnapshot.swift; sourceTree = "<group>"; };
+		7EF3633B2345A3BF8E96D3C0 /* APP_STORE_METADATA.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = APP_STORE_METADATA.md; sourceTree = "<group>"; };
+		7FCBF3A80CF0891416D59B1B /* build_and_run.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = build_and_run.sh; sourceTree = "<group>"; };
+		8C347C77E07642C9837DD961 /* WeatherStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeatherStore.swift; sourceTree = "<group>"; };
+		AFDD01C702C9C5A7AF0822B0 /* MenuBarContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuBarContentView.swift; sourceTree = "<group>"; };
+		BC2C03B1189E4E78B1C737F1 /* DashboardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		D8A05A54D81B48DDB3661DAB /* AppleSiliconMacCatalog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppleSiliconMacCatalog.swift; sourceTree = "<group>"; };
+		DEE61AF765BBE49EDCF5CC6A /* core-monitor-app-store.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = "core-monitor-app-store.entitlements"; sourceTree = "<group>"; };
+		F0BC83203908A65097815FBC /* App-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "App-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		202AD2A5A9BD87C34FF63C32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49FDB6E2162ED586DB201116 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		20DA1402A216918ADB8229BF /* App */ = {
+			isa = PBXGroup;
+			children = (
+				51439CFA5E7AE9636804CFB0 /* CoreMonitorAppStoreApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		2E0CB0FA305C1573FABC517D /* script */ = {
+			isa = PBXGroup;
+			children = (
+				7FCBF3A80CF0891416D59B1B /* build_and_run.sh */,
+			);
+			path = script;
+			sourceTree = "<group>";
+		};
+		38F84D074679BEAD3A05E445 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				448F11A96598692E9711382B /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		448F11A96598692E9711382B /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				251EA88365111A46E4FACB31 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		5EBDA01054E88E4E07D0DE14 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6744ACE404CF7CFE21EE6D1C /* MetricCard.swift */,
+				AFDD01C702C9C5A7AF0822B0 /* MenuBarContentView.swift */,
+				BC2C03B1189E4E78B1C737F1 /* DashboardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5F1E94334300C8AC35210F53 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				10504D3FC4A2F14C05EC4B0E /* core-monitor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		87BE7B0644104ED4E041C159 = {
+			isa = PBXGroup;
+			children = (
+				5F1E94334300C8AC35210F53 /* Products */,
+				38F84D074679BEAD3A05E445 /* Frameworks */,
+				F0FA57665E9224D54737CD3B /* Sources */,
+				B323763B6A1340F705C26567 /* Resources */,
+				DB535E0A50D0230091F6A546 /* docs */,
+				2E0CB0FA305C1573FABC517D /* script */,
+			);
+			sourceTree = "<group>";
+		};
+		A585CAC38A4D3B9A8853DD15 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D8A05A54D81B48DDB3661DAB /* AppleSiliconMacCatalog.swift */,
+				7B5DF2618E0F7521843221E1 /* SystemSnapshot.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B323763B6A1340F705C26567 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5D867A949B578F41B6C6B078 /* Assets.xcassets */,
+				1781C04675143AB40414312E /* Localizable.xcstrings */,
+				11E0A1340CF948DEB9D00001 /* InfoPlist.xcstrings */,
+				F0BC83203908A65097815FBC /* App-Info.plist */,
+				DEE61AF765BBE49EDCF5CC6A /* core-monitor-app-store.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C565236295EB67C36B10099E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				42EED4BAC3AB2A52A50C0C28 /* PublicSystemMonitor.swift */,
+				0DA28D0E4C5F15D985F26D50 /* SystemSnapshotStore.swift */,
+				8C347C77E07642C9837DD961 /* WeatherStore.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DB535E0A50D0230091F6A546 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				758A4BC4F7C6052609B9A729 /* APP_STORE_AUDIT.md */,
+				7EF3633B2345A3BF8E96D3C0 /* APP_STORE_METADATA.md */,
+				343883E204DB3D6F0C3104CD /* APP_STORE_READINESS_CHECKLIST.md */,
+				24F9B8D34E3BE3014C5CA90F /* PRIVACY_POLICY.md */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		F0FA57665E9224D54737CD3B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				20DA1402A216918ADB8229BF /* App */,
+				A585CAC38A4D3B9A8853DD15 /* Models */,
+				C565236295EB67C36B10099E /* Services */,
+				5EBDA01054E88E4E07D0DE14 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		60426E7E6B90C7B1EB54B24D /* core-monitor-app-store */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A8B6320B536E512F0FCC444 /* Build configuration list for PBXNativeTarget "core-monitor-app-store" */;
+			buildPhases = (
+				DEDA9D5A3BA820A9F1FE15E3 /* Sources */,
+				202AD2A5A9BD87C34FF63C32 /* Frameworks */,
+				F90218F765AC73E0AFD49695 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "core-monitor-app-store";
+			productName = "core-monitor";
+			productReference = 10504D3FC4A2F14C05EC4B0E /* core-monitor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		99C4ADDB65E4506A68074C1F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					60426E7E6B90C7B1EB54B24D = {
+						CreatedOnToolsVersion = 16.0;
+						DevelopmentTeam = 6VDP675K4L;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 06C5E1A2B9A7DCCDB0BD35E0 /* Build configuration list for PBXProject "core-monitor-app-store" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 87BE7B0644104ED4E041C159;
+			productRefGroup = 5F1E94334300C8AC35210F53 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				60426E7E6B90C7B1EB54B24D /* core-monitor-app-store */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F90218F765AC73E0AFD49695 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE69B515DB58866FD97D54F8 /* Assets.xcassets in Resources */,
+				11E0A1340CF948DEB9D00002 /* InfoPlist.xcstrings in Resources */,
+				4431A8896A7583941656FF90 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DEDA9D5A3BA820A9F1FE15E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				86553CF66B5906BACE6442AF /* CoreMonitorAppStoreApp.swift in Sources */,
+				A6EFCD08C93643E6A648B4BB /* AppleSiliconMacCatalog.swift in Sources */,
+				9A6096331AD50E614B2AC47A /* SystemSnapshot.swift in Sources */,
+				BF96553198DBF9D3972F1C5E /* PublicSystemMonitor.swift in Sources */,
+				19F9935857087251F755741F /* SystemSnapshotStore.swift in Sources */,
+				1A6ABBA8498E476E9EA3B2A1 /* WeatherStore.swift in Sources */,
+				6279406FD65234EDD7024B8F /* MetricCard.swift in Sources */,
+				F61F81D0EEBE237C09D3285C /* MenuBarContentView.swift in Sources */,
+				BB7C58D0C84FE3F08CB5511A /* DashboardView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		119E0210BC2DF800C016DD21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "core-monitor-app-store.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6VDP675K4L;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "core-monitor";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "CoreAPPStore.Core-Monitor";
+				PRODUCT_MODULE_NAME = core_monitor_app_store;
+				PRODUCT_NAME = "core-monitor";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3E77115C67853A27214135A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "core-monitor-app-store.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6VDP675K4L;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "core-monitor";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "CoreAPPStore.Core-Monitor";
+				PRODUCT_MODULE_NAME = core_monitor_app_store;
+				PRODUCT_NAME = "core-monitor";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		8B88D9CA557620CC8BE7AB1D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C0FADF7EFB810FB4EEFE9778 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		06C5E1A2B9A7DCCDB0BD35E0 /* Build configuration list for PBXProject "core-monitor-app-store" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0FADF7EFB810FB4EEFE9778 /* Debug */,
+				8B88D9CA557620CC8BE7AB1D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A8B6320B536E512F0FCC444 /* Build configuration list for PBXNativeTarget "core-monitor-app-store" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E77115C67853A27214135A2 /* Release */,
+				119E0210BC2DF800C016DD21 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 99C4ADDB65E4506A68074C1F /* Project object */;
+}

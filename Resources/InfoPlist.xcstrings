@@ -1,0 +1,1386 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "core-monitor"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "core-monitor"
+          }
+        }
+      }
+    },
+    "NSHumanReadableCopyright" : {
+      "comment" : "Copyright (human-readable)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copyright 2026 CoreTools"
+          }
+        }
+      }
+    },
+    "NSLocationUsageDescription" : {
+      "comment" : "Privacy - Location Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor vereis jou ligging om die weer te vertoon."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor የአየር ሁኔታን ለማሳየት አካባቢዎን ይፈልጋል።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يتطلب core-monitor موقعك لعرض الطقس."
+          }
+        },
+        "as" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বতৰ প্ৰদৰ্শন কৰিবলৈ core-monitor ৰ বাবে আপোনাৰ অৱস্থানৰ প্ৰয়োজন।"
+          }
+        },
+        "ay" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ukax kawkhantix utjki ukax pacha uñacht’ayañatakiw mayi."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor havanı göstərmək üçün yerinizi tələb edir."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor патрабуе вашага месцазнаходжання для адлюстравання надвор'я."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor изисква вашето местоположение, за да покаже времето."
+          }
+        },
+        "bho" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor के मौसम के प्रदर्शित करे खातिर राउर स्थान के जरूरत होला।"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor আবহাওয়া প্রদর্শনের জন্য আপনার অবস্থানের প্রয়োজন।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor zahtijeva vašu lokaciju za prikaz vremena."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor requereix la vostra ubicació per mostrar el temps."
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gikinahanglan sa core-monitor ang imong lokasyon aron ipakita ang panahon."
+          }
+        },
+        "co" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor richiede u vostru locu per vede u clima."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor vyžaduje k zobrazení počasí vaši polohu."
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mae core-monitor yn gofyn am eich lleoliad i arddangos y tywydd."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor kræver din placering for at vise vejret."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor benötigt Ihren Standort, um das Wetter anzuzeigen."
+          }
+        },
+        "dv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor އިން މޫސުން ދައްކާލުމަށް ތިބާގެ ލޮކޭޝަން ބޭނުންވެއެވެ."
+          }
+        },
+        "ee" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor bia be afi si nèle la naɖe yame ƒe nɔnɔme afia."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το core-monitor απαιτεί την τοποθεσία σας για να εμφανίζει τον καιρό."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "core-monitor requires your location to display the weather."
+          }
+        },
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor postulas vian lokon por montri la veteron."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor requiere su ubicación para mostrar el clima."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor nõuab ilmateate kuvamiseks teie asukohta."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor برای نمایش آب و هوا به موقعیت مکانی شما نیاز دارد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor vaatii sijaintisi näyttääkseen sään."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kinakailangan ng core-monitor ang iyong lokasyon upang ipakita ang lagay ng panahon."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor nécessite votre emplacement pour afficher la météo."
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor fereasket jo lokaasje om it waar te werjaan."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éilíonn core-monitor do shuíomh chun an aimsir a thaispeáint."
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feumaidh core-monitor d’ àite gus an aimsir a thaisbeanadh."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor require a túa localización para mostrar o tempo."
+          }
+        },
+        "gn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ojerure nde reimeha ohechauka hag̃ua ára."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "હવામાન દર્શાવવા માટે core-monitor ને તમારા સ્થાનની જરૂર છે."
+          }
+        },
+        "ha" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor yana buƙatar wurin ku don nuna yanayin."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor דורש את המיקום שלך כדי להציג את מזג האוויר."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor को मौसम प्रदर्शित करने के लिए आपके स्थान की आवश्यकता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor zahtijeva vašu lokaciju za prikaz vremena."
+          }
+        },
+        "ht" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor mande kote w ap montre move tan an."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A core-monitor megköveteli a tartózkodási helyét az időjárás megjelenítéséhez."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor-ը պահանջում է ձեր գտնվելու վայրը՝ եղանակը ցուցադրելու համար:"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor memerlukan lokasi Anda untuk menampilkan cuaca."
+          }
+        },
+        "ig" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor chọrọ ọnọdụ gị iji gosipụta ihu igwe."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor krefst staðsetningu þinnar til að sýna veðrið."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor richiede la tua posizione per visualizzare il meteo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor では、天気を表示するには現在地が必要です。"
+          }
+        },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor mbutuhake lokasi sampeyan kanggo nampilake cuaca."
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor მოითხოვს თქვენს მდებარეობას ამინდის საჩვენებლად."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ауа райын көрсету үшін орналасқан жеріңізді талап етеді."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ទាមទារទីតាំងរបស់អ្នកដើម្បីបង្ហាញអាកាសធាតុ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ಹವಾಮಾನವನ್ನು ಪ್ರದರ್ಶಿಸಲು ನಿಮ್ಮ ಸ್ಥಳದ ಅಗತ್ಯವಿದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor에서는 날씨를 표시하려면 위치가 필요합니다."
+          }
+        },
+        "ku" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor cîhê we hewce dike ku hewayê nîşan bide."
+          }
+        },
+        "ky" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor аба ырайын көрсөтүү үчүн жайгашкан жериңизди талап кылат."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor erfuerdert Är Plaz fir d'Wieder ze weisen."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ຕ້ອງການສະຖານທີ່ຂອງທ່ານເພື່ອສະແດງສະພາບອາກາດ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor reikalinga jūsų vieta, kad būtų rodomas oras."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lai parādītu laikapstākļus, core-monitor ir nepieciešama jūsu atrašanās vieta."
+          }
+        },
+        "mg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor dia mitaky ny toerana misy anao hanehoana ny toetrandro."
+          }
+        },
+        "mi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kei te hiahia a core-monitor i to waahi hei whakaatu i te huarere."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor бара вашата локација да го прикажува времето."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor-ന് കാലാവസ്ഥ പ്രദർശിപ്പിക്കുന്നതിന് നിങ്ങളുടെ സ്ഥാനം ആവശ്യമാണ്."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor нь цаг агаарыг харуулахын тулд таны байршлыг шаарддаг."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ला हवामान प्रदर्शित करण्यासाठी तुमचे स्थान आवश्यक आहे."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor memerlukan lokasi anda untuk memaparkan cuaca."
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor jeħtieġ il-lokalità tiegħek biex turi t-temp."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ရာသီဥတုကိုပြသရန်သင့်တည်နေရာလိုအပ်သည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor krever posisjonen din for å vise været."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor लाई मौसम प्रदर्शन गर्न तपाईंको स्थान चाहिन्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor heeft uw locatie nodig om het weer weer te geven."
+          }
+        },
+        "om" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor haala qilleensaa agarsiisuuf bakka jirtu barbaada."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ପାଣିପାଗ ପ୍ରଦର୍ଶନ କରିବାକୁ ଆପଣଙ୍କର ଅବସ୍ଥାନ ଆବଶ୍ୟକ କରେ |"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ਨੂੰ ਮੌਸਮ ਦਿਖਾਉਣ ਲਈ ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਦੀ ਲੋੜ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor wymaga Twojej lokalizacji, aby wyświetlić pogodę."
+          }
+        },
+        "ps" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor د هوا ښودلو لپاره ستاسو موقعیت ته اړتیا لري."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor requer sua localização para exibir o clima."
+          }
+        },
+        "qu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor maypi kasqaykita pachata qhawachinapaq munan."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor necesită locația dvs. pentru a afișa vremea."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor требует вашего местоположения для отображения погоды."
+          }
+        },
+        "rw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor isaba aho uherereye kugirango werekane ikirere."
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor توهان جي مقام جي ضرورت آهي موسم کي ظاهر ڪرڻ لاءِ."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor කාලගුණය පෙන්වීමට ඔබගේ ස්ථානය අවශ්‍ය වේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor vyžaduje na zobrazenie počasia vašu polohu."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor zahteva vašo lokacijo za prikaz vremena."
+          }
+        },
+        "sm" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor e manaʻomia lou nofoaga e faʻaalia ai le tau."
+          }
+        },
+        "sn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor inoda nzvimbo yako kuratidza mamiriro ekunze."
+          }
+        },
+        "so" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor waxay u baahan tahay goobtaada si ay u muujiso cimilada."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor kërkon vendndodhjen tuaj për të shfaqur motin."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ЗКСТОКЕН0К захтева вашу локацију за приказ времена."
+          }
+        },
+        "su" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor merlukeun lokasi anjeun pikeun mintonkeun cuaca."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor kräver din plats för att visa vädret."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor inahitaji eneo lako ili kuonyesha hali ya hewa."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor வானிலையைக் காட்ட உங்கள் இருப்பிடம் தேவை."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor వాతావరణాన్ని ప్రదర్శించడానికి మీ స్థానం అవసరం."
+          }
+        },
+        "tg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor барои нишон додани обу ҳаво макони шуморо талаб мекунад."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ต้องการตำแหน่งของคุณเพื่อแสดงสภาพอากาศ"
+          }
+        },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor howany görkezmek üçin ýerleşýän ýeriňizi talap edýär."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor, hava durumunu görüntülemek için konumunuzu gerektirir."
+          }
+        },
+        "tt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor һава торышын күрсәтү өчен сезнең урыныгызны таләп итә."
+          }
+        },
+        "ug" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ھاۋارايىڭىزنى كۆرسىتىش ئۈچۈن ئورنىڭىزنى تەلەپ قىلىدۇ."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor вимагає вашого місцезнаходження для відображення погоди."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor کو موسم ظاہر کرنے کے لیے آپ کا مقام درکار ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ob-havoni ko‘rsatish uchun joylashuvingizni talab qiladi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor yêu cầu vị trí của bạn để hiển thị thời tiết."
+          }
+        },
+        "xh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-core-monitor ifuna indawo okuyo ukubonisa imozulu."
+          }
+        },
+        "yi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ריקווייערז דיין אָרט צו ווייַזן די וועטער."
+          }
+        },
+        "yo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor nilo ipo rẹ lati ṣe afihan oju ojo."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor 需要您所在的位置才能显示天气。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor 需要您所在的位置才能顯示天氣。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-core-monitor idinga indawo yakho ukuze ibonise isimo sezulu."
+          }
+        }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription" : {
+      "comment" : "Privacy - Location When In Use Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor vereis jou ligging om die weer te vertoon."
+          }
+        },
+        "am" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor የአየር ሁኔታን ለማሳየት አካባቢዎን ይፈልጋል።"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يتطلب core-monitor موقعك لعرض الطقس."
+          }
+        },
+        "as" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বতৰ প্ৰদৰ্শন কৰিবলৈ core-monitor ৰ বাবে আপোনাৰ অৱস্থানৰ প্ৰয়োজন।"
+          }
+        },
+        "ay" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ukax kawkhantix utjki ukax pacha uñacht’ayañatakiw mayi."
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor havanı göstərmək üçün yerinizi tələb edir."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor патрабуе вашага месцазнаходжання для адлюстравання надвор'я."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor изисква вашето местоположение, за да покаже времето."
+          }
+        },
+        "bho" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor के मौसम के प्रदर्शित करे खातिर राउर स्थान के जरूरत होला।"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor আবহাওয়া প্রদর্শনের জন্য আপনার অবস্থানের প্রয়োজন।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor zahtijeva vašu lokaciju za prikaz vremena."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor requereix la vostra ubicació per mostrar el temps."
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gikinahanglan sa core-monitor ang imong lokasyon aron ipakita ang panahon."
+          }
+        },
+        "co" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor richiede u vostru locu per vede u clima."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor vyžaduje k zobrazení počasí vaši polohu."
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mae core-monitor yn gofyn am eich lleoliad i arddangos y tywydd."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor kræver din placering for at vise vejret."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor benötigt Ihren Standort, um das Wetter anzuzeigen."
+          }
+        },
+        "dv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor އިން މޫސުން ދައްކާލުމަށް ތިބާގެ ލޮކޭޝަން ބޭނުންވެއެވެ."
+          }
+        },
+        "ee" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor bia be afi si nèle la naɖe yame ƒe nɔnɔme afia."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το core-monitor απαιτεί την τοποθεσία σας για να εμφανίζει τον καιρό."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "core-monitor requires your location to display the weather."
+          }
+        },
+        "eo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor postulas vian lokon por montri la veteron."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor requiere su ubicación para mostrar el clima."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor nõuab ilmateate kuvamiseks teie asukohta."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor برای نمایش آب و هوا به موقعیت مکانی شما نیاز دارد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor vaatii sijaintisi näyttääkseen sään."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kinakailangan ng core-monitor ang iyong lokasyon upang ipakita ang lagay ng panahon."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor nécessite votre emplacement pour afficher la météo."
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor fereasket jo lokaasje om it waar te werjaan."
+          }
+        },
+        "ga" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éilíonn core-monitor do shuíomh chun an aimsir a thaispeáint."
+          }
+        },
+        "gd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feumaidh core-monitor d’ àite gus an aimsir a thaisbeanadh."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor require a túa localización para mostrar o tempo."
+          }
+        },
+        "gn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ojerure nde reimeha ohechauka hag̃ua ára."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "હવામાન દર્શાવવા માટે core-monitor ને તમારા સ્થાનની જરૂર છે."
+          }
+        },
+        "ha" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor yana buƙatar wurin ku don nuna yanayin."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor דורש את המיקום שלך כדי להציג את מזג האוויר."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor को मौसम प्रदर्शित करने के लिए आपके स्थान की आवश्यकता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor zahtijeva vašu lokaciju za prikaz vremena."
+          }
+        },
+        "ht" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor mande kote w ap montre move tan an."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A core-monitor megköveteli a tartózkodási helyét az időjárás megjelenítéséhez."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor-ը պահանջում է ձեր գտնվելու վայրը՝ եղանակը ցուցադրելու համար:"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor memerlukan lokasi Anda untuk menampilkan cuaca."
+          }
+        },
+        "ig" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor chọrọ ọnọdụ gị iji gosipụta ihu igwe."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor krefst staðsetningu þinnar til að sýna veðrið."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor richiede la tua posizione per visualizzare il meteo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor では、天気を表示するには現在地が必要です。"
+          }
+        },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor mbutuhake lokasi sampeyan kanggo nampilake cuaca."
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor მოითხოვს თქვენს მდებარეობას ამინდის საჩვენებლად."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ауа райын көрсету үшін орналасқан жеріңізді талап етеді."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ទាមទារទីតាំងរបស់អ្នកដើម្បីបង្ហាញអាកាសធាតុ។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ಹವಾಮಾನವನ್ನು ಪ್ರದರ್ಶಿಸಲು ನಿಮ್ಮ ಸ್ಥಳದ ಅಗತ್ಯವಿದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor에서는 날씨를 표시하려면 위치가 필요합니다."
+          }
+        },
+        "ku" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor cîhê we hewce dike ku hewayê nîşan bide."
+          }
+        },
+        "ky" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor аба ырайын көрсөтүү үчүн жайгашкан жериңизди талап кылат."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor erfuerdert Är Plaz fir d'Wieder ze weisen."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ຕ້ອງການສະຖານທີ່ຂອງທ່ານເພື່ອສະແດງສະພາບອາກາດ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor reikalinga jūsų vieta, kad būtų rodomas oras."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lai parādītu laikapstākļus, core-monitor ir nepieciešama jūsu atrašanās vieta."
+          }
+        },
+        "mg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor dia mitaky ny toerana misy anao hanehoana ny toetrandro."
+          }
+        },
+        "mi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kei te hiahia a core-monitor i to waahi hei whakaatu i te huarere."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor бара вашата локација да го прикажува времето."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor-ന് കാലാവസ്ഥ പ്രദർശിപ്പിക്കുന്നതിന് നിങ്ങളുടെ സ്ഥാനം ആവശ്യമാണ്."
+          }
+        },
+        "mn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor нь цаг агаарыг харуулахын тулд таны байршлыг шаарддаг."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ला हवामान प्रदर्शित करण्यासाठी तुमचे स्थान आवश्यक आहे."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor memerlukan lokasi anda untuk memaparkan cuaca."
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor jeħtieġ il-lokalità tiegħek biex turi t-temp."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ရာသီဥတုကိုပြသရန်သင့်တည်နေရာလိုအပ်သည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor krever posisjonen din for å vise været."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor लाई मौसम प्रदर्शन गर्न तपाईंको स्थान चाहिन्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor heeft uw locatie nodig om het weer weer te geven."
+          }
+        },
+        "om" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor haala qilleensaa agarsiisuuf bakka jirtu barbaada."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ପାଣିପାଗ ପ୍ରଦର୍ଶନ କରିବାକୁ ଆପଣଙ୍କର ଅବସ୍ଥାନ ଆବଶ୍ୟକ କରେ |"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ਨੂੰ ਮੌਸਮ ਦਿਖਾਉਣ ਲਈ ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਦੀ ਲੋੜ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor wymaga Twojej lokalizacji, aby wyświetlić pogodę."
+          }
+        },
+        "ps" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor د هوا ښودلو لپاره ستاسو موقعیت ته اړتیا لري."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor requer sua localização para exibir o clima."
+          }
+        },
+        "qu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor maypi kasqaykita pachata qhawachinapaq munan."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor necesită locația dvs. pentru a afișa vremea."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor требует вашего местоположения для отображения погоды."
+          }
+        },
+        "rw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor isaba aho uherereye kugirango werekane ikirere."
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor توهان جي مقام جي ضرورت آهي موسم کي ظاهر ڪرڻ لاءِ."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor කාලගුණය පෙන්වීමට ඔබගේ ස්ථානය අවශ්‍ය වේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor vyžaduje na zobrazenie počasia vašu polohu."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor zahteva vašo lokacijo za prikaz vremena."
+          }
+        },
+        "sm" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor e manaʻomia lou nofoaga e faʻaalia ai le tau."
+          }
+        },
+        "sn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor inoda nzvimbo yako kuratidza mamiriro ekunze."
+          }
+        },
+        "so" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor waxay u baahan tahay goobtaada si ay u muujiso cimilada."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor kërkon vendndodhjen tuaj për të shfaqur motin."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ЗКСТОКЕН0К захтева вашу локацију за приказ времена."
+          }
+        },
+        "su" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor merlukeun lokasi anjeun pikeun mintonkeun cuaca."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor kräver din plats för att visa vädret."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor inahitaji eneo lako ili kuonyesha hali ya hewa."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor வானிலையைக் காட்ட உங்கள் இருப்பிடம் தேவை."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor వాతావరణాన్ని ప్రదర్శించడానికి మీ స్థానం అవసరం."
+          }
+        },
+        "tg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor барои нишон додани обу ҳаво макони шуморо талаб мекунад."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ต้องการตำแหน่งของคุณเพื่อแสดงสภาพอากาศ"
+          }
+        },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor howany görkezmek üçin ýerleşýän ýeriňizi talap edýär."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor, hava durumunu görüntülemek için konumunuzu gerektirir."
+          }
+        },
+        "tt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor һава торышын күрсәтү өчен сезнең урыныгызны таләп итә."
+          }
+        },
+        "ug" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ھاۋارايىڭىزنى كۆرسىتىش ئۈچۈن ئورنىڭىزنى تەلەپ قىلىدۇ."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor вимагає вашого місцезнаходження для відображення погоди."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor کو موسم ظاہر کرنے کے لیے آپ کا مقام درکار ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ob-havoni ko‘rsatish uchun joylashuvingizni talab qiladi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor yêu cầu vị trí của bạn để hiển thị thời tiết."
+          }
+        },
+        "xh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-core-monitor ifuna indawo okuyo ukubonisa imozulu."
+          }
+        },
+        "yi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor ריקווייערז דיין אָרט צו ווייַזן די וועטער."
+          }
+        },
+        "yo" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor nilo ipo rẹ lati ṣe afihan oju ojo."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor 需要您所在的位置才能显示天气。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "core-monitor 需要您所在的位置才能顯示天氣。"
+          }
+        },
+        "zu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I-core-monitor idinga indawo yakho ukuze ibonise isimo sezulu."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
