@@ -216,7 +216,7 @@ struct CalendarMonthPanel: View {
             }
 
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 7), spacing: 6) {
-                ForEach(weekdaySymbols, id: \.self) { symbol in
+                ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { _, symbol in
                     Text(symbol)
                         .font(.caption2.weight(.semibold))
                         .foregroundStyle(.secondary)

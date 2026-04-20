@@ -39,7 +39,7 @@ The legacy `Core-Monitor` target in the repository still contains helper-driven 
 
 `Info.plist` includes the location purpose string:
 
-- `Core-Monitor requires your location to display the weather.`
+- `Core-Monitor requires your location to display local weather.`
 
 ## Manual review items that still remain
 
@@ -52,3 +52,5 @@ The legacy `Core-Monitor` target in the repository still contains helper-driven 
 
 - Exact CPU temperature is not exposed through the system frameworks used by this variant, so the thermal card relies on the thermal signals macOS provides instead.
 - Weather requires both location approval and a signed build with WeatherKit enabled.
+- The dashboard and menu bar expose direct Privacy Policy and Support links for the App Store edition site.
+- The public App Store edition site now stays inside App Store-specific pages and no longer routes reviewers to the broader direct-download build.

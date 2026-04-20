@@ -1,6 +1,5 @@
 import Foundation
 import IOKit.ps
-import IOKit.pwr_mgt
 import Darwin
 
 final class PublicSystemMonitor {
@@ -23,9 +22,9 @@ final class PublicSystemMonitor {
                 modelIdentifier: modelIdentifier,
                 fallbackChipName: catalogEntry?.chipFamilyName
             ),
-            logicalCoreCount: Self.sysctlInt(named: "hw.logicalcpu") ?? ProcessInfo.processInfo.activeProcessorCount,
-            performanceCoreCount: Self.positiveSysctlInt(named: "hw.perflevel0.logicalcpu"),
-            efficiencyCoreCount: Self.positiveSysctlInt(named: "hw.perflevel1.logicalcpu"),
+            logicalCoreCount: ProcessInfo.processInfo.activeProcessorCount,
+            performanceCoreCount: nil,
+            efficiencyCoreCount: nil,
             physicalMemoryBytes: ProcessInfo.processInfo.physicalMemory
         )
     }
@@ -299,28 +298,9 @@ final class PublicSystemMonitor {
     }
 
     private func sampleThermal() -> ThermalSnapshot {
-        var warningLevel: UInt32 = ThermalWarningConstants.normal
-        let result = IOPMGetThermalWarningLevel(&warningLevel)
-
-        let resolvedWarningLevel: ThermalWarningLevel
-        if result == kIOReturnSuccess {
-            switch warningLevel {
-            case ThermalWarningConstants.normal:
-                resolvedWarningLevel = .normal
-            case ThermalWarningConstants.warning:
-                resolvedWarningLevel = .warning
-            case ThermalWarningConstants.critical:
-                resolvedWarningLevel = .critical
-            default:
-                resolvedWarningLevel = .unavailable
-            }
-        } else {
-            resolvedWarningLevel = .unavailable
-        }
-
         return ThermalSnapshot(
             state: ProcessInfo.processInfo.thermalState,
-            warningLevel: resolvedWarningLevel
+            warningLevel: .unavailable
         )
     }
 
@@ -465,16 +445,8 @@ final class PublicSystemMonitor {
     }
 
     private static func chipName(modelIdentifier: String, fallbackChipName: String?) -> String {
-        if let brandString = sysctlString(named: "machdep.cpu.brand_string"), !brandString.isEmpty {
-            return brandString
-        }
-
         if let fallbackChipName, fallbackChipName.isEmpty == false {
             return fallbackChipName
-        }
-
-        if positiveSysctlInt(named: "hw.optional.arm64") == 1 {
-            return "Apple Silicon"
         }
 
         return modelIdentifier
@@ -488,29 +460,10 @@ final class PublicSystemMonitor {
         guard sysctlbyname(name, &buffer, &size, nil, 0) == 0 else { return nil }
         return String(cString: buffer)
     }
-
-    private static func sysctlInt(named name: String) -> Int? {
-        var value: Int32 = 0
-        var size = MemoryLayout<Int32>.size
-        guard sysctlbyname(name, &value, &size, nil, 0) == 0 else { return nil }
-        return Int(value)
-    }
-
-    private static func positiveSysctlInt(named name: String) -> Int? {
-        guard let value = sysctlInt(named: name), value > 0 else { return nil }
-        return value
-    }
 }
 
 private struct NetworkCounters {
     let receivedBytes: UInt64
     let transmittedBytes: UInt64
     let sampledAt: Date
-}
-
-private enum ThermalWarningConstants {
-    // Matches IOKit.framework pwr_mgt/IOPM.h in the macOS 26.4 SDK.
-    static let normal: UInt32 = 0
-    static let warning: UInt32 = 100
-    static let critical: UInt32 = 10
 }

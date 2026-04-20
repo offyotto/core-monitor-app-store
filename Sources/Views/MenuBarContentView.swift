@@ -17,20 +17,57 @@ struct MenuBarLabelView: View {
 struct MenuBarContentView: View {
     @ObservedObject var store: SystemSnapshotStore
     @ObservedObject var weatherStore: WeatherStore
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.openWindow) private var openWindow
 
+    private let popoverWidth: CGFloat = 320
+    private let scrollRegionHeight: CGFloat = 300
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            VStack(alignment: .leading, spacing: 3) {
-                Text(localized("menu.title"))
-                    .font(.headline)
-                Text(store.snapshot.hardware.marketingName)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
+        VStack(alignment: .leading, spacing: 12) {
+            headerSection
 
             Divider()
 
+            ScrollView(.vertical, showsIndicators: true) {
+                VStack(alignment: .leading, spacing: 12) {
+                    summarySection
+
+                    Divider()
+
+                    recentTrendsSection
+                }
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .padding(.trailing, 6)
+            }
+            .frame(height: scrollRegionHeight, alignment: .top)
+
+            Divider()
+
+            actionSection
+        }
+        .padding(14)
+        .frame(width: popoverWidth)
+        .task {
+            weatherStore.start()
+        }
+    }
+
+    private var headerSection: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(localized("menu.title"))
+                .font(.headline)
+            Text(store.snapshot.hardware.marketingName)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Text(localized("menu.subtitle.readOnly"))
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    private var summarySection: some View {
+        VStack(alignment: .leading, spacing: 10) {
             InlineMetricRow(title: localized("menu.summary.cpu"), value: percentageText(store.snapshot.cpu.overallPercent))
             InlineMetricRow(title: localized("menu.summary.memory"), value: percentageText(store.snapshot.memory.usagePercent))
             InlineMetricRow(title: localized("metric.network.down"), value: rateText(store.snapshot.network.downloadRateBytesPerSecond))
@@ -46,28 +83,60 @@ struct MenuBarContentView: View {
                 InlineMetricRow(title: localized("menu.summary.battery"), value: batterySummary(store.snapshot.battery))
             }
 
-            switch weatherStore.state {
-            case .loaded(let weather):
-                InlineMetricRow(
-                    title: localized("card.weather.title"),
-                    value: "\(Int(weather.temperatureCelsius.rounded()))°C \(weather.locationName)"
-                )
-            case .needsLocation:
-                InlineMetricRow(title: localized("card.weather.title"), value: localized("weather.status.locationNeeded"))
-            case .loading:
-                InlineMetricRow(title: localized("card.weather.title"), value: localized("weather.status.updating"))
-            case .unavailable(let message):
-                InlineMetricRow(title: localized("card.weather.title"), value: weatherSummary(for: message))
-            case .idle:
-                EmptyView()
+            weatherRow
+
+            if let attribution = weatherStore.attribution {
+                HStack(spacing: 8) {
+                    AsyncImage(url: colorScheme == .dark ? attribution.darkMarkURL : attribution.lightMarkURL) { phase in
+                        switch phase {
+                        case .empty, .failure:
+                            Text(attribution.serviceName)
+                                .font(.caption2.weight(.semibold))
+                                .foregroundStyle(.secondary)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        @unknown default:
+                            Text(attribution.serviceName)
+                                .font(.caption2.weight(.semibold))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .frame(width: 90, height: 14, alignment: .leading)
+
+                    Spacer()
+
+                    Link(localized("weather.legal"), destination: attribution.legalPageURL)
+                        .font(.caption2)
+                }
+                .padding(.top, 2)
             }
+        }
+    }
 
-            Divider()
-            recentTrendsSection
+    @ViewBuilder
+    private var weatherRow: some View {
+        switch weatherStore.state {
+        case .loaded(let weather):
+            InlineMetricRow(
+                title: localized("card.weather.title"),
+                value: "\(Int(weather.temperatureCelsius.rounded()))°C \(weather.locationName)"
+            )
+        case .needsLocation:
+            InlineMetricRow(title: localized("card.weather.title"), value: localized("weather.status.locationNeeded"))
+        case .loading:
+            InlineMetricRow(title: localized("card.weather.title"), value: localized("weather.status.updating"))
+        case .unavailable(let message):
+            InlineMetricRow(title: localized("card.weather.title"), value: weatherSummary(for: message))
+        case .idle:
+            EmptyView()
+        }
+    }
 
-            Divider()
-
-            HStack(spacing: 10) {
+    private var actionSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
                 Button(localized("menu.openDashboard")) {
                     openWindow(id: CoreMonitorAppStoreApp.dashboardWindowID)
                     NSApp.activate(ignoringOtherApps: true)
@@ -79,15 +148,17 @@ struct MenuBarContentView: View {
                 }
             }
 
+            VStack(alignment: .leading, spacing: 4) {
+                Link(localized("link.privacyPolicy"), destination: AppExternalLinks.privacyPolicy)
+                Link(localized("link.support"), destination: AppExternalLinks.support)
+            }
+            .font(.caption)
+
             Button(localized("menu.quit")) {
                 NSApplication.shared.terminate(nil)
             }
         }
-        .padding(16)
-        .frame(width: 360)
-        .task {
-            weatherStore.start()
-        }
+        .controlSize(.small)
     }
 
     private var recentTrendsSection: some View {
@@ -263,8 +334,10 @@ struct MenuBarContentView: View {
             return localized("weather.status.locationOff")
         }
 
-        if normalized.contains("signed build") || normalized.contains("weatherkit") {
-            return localized("weather.status.needsSignedBuild")
+        if normalized.contains("authenticate this build")
+            || normalized.contains("provisioning profile")
+            || normalized.contains("weatherkit") {
+            return localized("weather.status.setupRequired")
         }
 
         return localized("value.unavailable")

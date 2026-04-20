@@ -1,13 +1,13 @@
 # core-monitor-app-store
 
-`core-monitor-app-store` is the sandboxed store edition of Core Monitor.
+`core-monitor-app-store` is the sandboxed Mac App Store edition of Core-Monitor.
 
 ## What it includes
 
-- live CPU activity with performance/efficiency splits
+- live CPU activity
 - per-core monitoring
 - memory usage and pressure
-- thermal state and thermal warning level
+- thermal state
 - network throughput
 - startup disk usage
 - uptime and load averages
@@ -51,6 +51,9 @@ xcodebuild -project core-monitor-app-store.xcodeproj -scheme core-monitor-app-st
 
 ## Notes
 
-- Weather uses a signed WeatherKit path first and falls back to a forecast fetch when Apple Weather auth is unavailable on the local machine.
+- Weather uses WeatherKit in a signed build and surfaces setup issues directly when Apple Weather authentication fails.
+- Weather attribution follows the WeatherKit `WeatherAttribution` surface, including the Apple Weather mark, legal link, and legal attribution text.
+- The dashboard and menu bar both expose in-app links to the App Store edition [Privacy Policy](https://offyotto-sl3.github.io/Core-Monitor/Mac-App-Store/privacy/) and [Support](https://offyotto-sl3.github.io/Core-Monitor/Mac-App-Store/support/) pages.
+- The App Store target avoids AppleSMC, private frameworks, private selectors, and undocumented chip or perf-level probes.
 - Exact CPU temperature is not available through the system frameworks used here, so the thermal card relies on the thermal signals macOS publishes instead.
 - Final archive, signing, and release validation still need to happen in Xcode.
