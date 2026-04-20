@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11E0A1340CF948DEB9D00002 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 11E0A1340CF948DEB9D00001 /* InfoPlist.xcstrings */; };
 		19F9935857087251F755741F /* SystemSnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA28D0E4C5F15D985F26D50 /* SystemSnapshotStore.swift */; };
 		1A6ABBA8498E476E9EA3B2A1 /* WeatherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C347C77E07642C9837DD961 /* WeatherStore.swift */; };
 		4431A8896A7583941656FF90 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1781C04675143AB40414312E /* Localizable.xcstrings */; };
-		11E0A1340CF948DEB9D00002 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 11E0A1340CF948DEB9D00001 /* InfoPlist.xcstrings */; };
 		49FDB6E2162ED586DB201116 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251EA88365111A46E4FACB31 /* Cocoa.framework */; };
 		6279406FD65234EDD7024B8F /* MetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6744ACE404CF7CFE21EE6D1C /* MetricCard.swift */; };
 		86553CF66B5906BACE6442AF /* CoreMonitorAppStoreApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51439CFA5E7AE9636804CFB0 /* CoreMonitorAppStoreApp.swift */; };
@@ -24,8 +24,8 @@
 
 /* Begin PBXFileReference section */
 		0DA28D0E4C5F15D985F26D50 /* SystemSnapshotStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SystemSnapshotStore.swift; sourceTree = "<group>"; };
-		11E0A1340CF948DEB9D00001 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		10504D3FC4A2F14C05EC4B0E /* core-monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "core-monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		11E0A1340CF948DEB9D00001 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		1781C04675143AB40414312E /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		24F9B8D34E3BE3014C5CA90F /* PRIVACY_POLICY.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = PRIVACY_POLICY.md; sourceTree = "<group>"; };
 		251EA88365111A46E4FACB31 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -269,18 +269,18 @@
 				CODE_SIGN_ENTITLEMENTS = "core-monitor-app-store.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = 6VDP675K4L;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "core-monitor";
+				INFOPLIST_KEY_CFBundleDisplayName = "Core-Monitor";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CoreAPPStore.Core-Monitor";
 				PRODUCT_MODULE_NAME = core_monitor_app_store;
 				PRODUCT_NAME = "core-monitor";
@@ -300,18 +300,18 @@
 				CODE_SIGN_ENTITLEMENTS = "core-monitor-app-store.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2000;
 				DEVELOPMENT_TEAM = 6VDP675K4L;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "core-monitor";
+				INFOPLIST_KEY_CFBundleDisplayName = "Core-Monitor";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CoreAPPStore.Core-Monitor";
 				PRODUCT_MODULE_NAME = core_monitor_app_store;
 				PRODUCT_NAME = "core-monitor";

@@ -55,8 +55,29 @@ struct DashboardView: View {
             Text(localized("dashboard.subtitle"))
                 .foregroundStyle(.secondary)
 
+            Text(localized("dashboard.readOnly"))
+                .font(.callout.weight(.medium))
+                .foregroundStyle(.secondary)
+
+            appSupportLinks
+
             overviewDetails
         }
+    }
+
+    private var appSupportLinks: some View {
+        ViewThatFits {
+            HStack(spacing: 16) {
+                Link(localized("link.privacyPolicy"), destination: AppExternalLinks.privacyPolicy)
+                Link(localized("link.support"), destination: AppExternalLinks.support)
+            }
+
+            VStack(alignment: .leading, spacing: 8) {
+                Link(localized("link.privacyPolicy"), destination: AppExternalLinks.privacyPolicy)
+                Link(localized("link.support"), destination: AppExternalLinks.support)
+            }
+        }
+        .font(.callout.weight(.semibold))
     }
 
     private var overviewDetails: some View {
@@ -90,6 +111,7 @@ struct DashboardView: View {
                     cpuCard
                     memoryCard
                     networkCard
+                    dailyReportCard
                     activityCard
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -117,6 +139,7 @@ struct DashboardView: View {
             memoryCard
             weatherCard
             networkCard
+            dailyReportCard
             powerCard
             storageCard
             systemCard
@@ -271,7 +294,7 @@ struct DashboardView: View {
                         AsyncImage(url: colorScheme == .dark ? attribution.darkMarkURL : attribution.lightMarkURL) { phase in
                             switch phase {
                             case .empty:
-                                Text(localized("weather.source.apple"))
+                                Text(attribution.serviceName)
                                     .font(.caption.weight(.semibold))
                                     .foregroundStyle(.secondary)
                             case .success(let image):
@@ -279,11 +302,11 @@ struct DashboardView: View {
                                     .resizable()
                                     .scaledToFit()
                             case .failure:
-                                Text(localized("weather.source.apple"))
+                                Text(attribution.serviceName)
                                     .font(.caption.weight(.semibold))
                                     .foregroundStyle(.secondary)
                             @unknown default:
-                                Text(localized("weather.source.apple"))
+                                Text(attribution.serviceName)
                                     .font(.caption.weight(.semibold))
                                     .foregroundStyle(.secondary)
                             }
@@ -295,6 +318,17 @@ struct DashboardView: View {
                         Link(localized("weather.legal"), destination: attribution.legalPageURL)
                             .font(.caption)
                     }
+
+                    DisclosureGroup(localized("weather.attribution.title")) {
+                        Text(attribution.legalAttributionText)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .textSelection(.enabled)
+
+                        Link(localized("weather.legal"), destination: attribution.legalPageURL)
+                            .font(.caption.weight(.semibold))
+                    }
+                    .font(.caption)
                 }
             }
         }
@@ -327,6 +361,58 @@ struct DashboardView: View {
             }
 
             InlineMetricRow(title: localized("metric.network.activeInterfaces"), value: "\(store.snapshot.network.activeInterfaceCount)")
+        }
+    }
+
+    private var dailyReportCard: some View {
+        DashboardCard(
+            title: localized("card.report.title"),
+            systemImage: "calendar.badge.clock",
+            description: localized("card.report.description")
+        ) {
+            if let report = store.todayReport {
+                HStack(alignment: .lastTextBaseline, spacing: 12) {
+                    Text(percentageText(report.cpuPeakPercent))
+                        .font(.system(size: 34, weight: .semibold, design: .rounded))
+                        .monospacedDigit()
+
+                    Text(localized("metric.report.cpuPeak"))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+
+                InlineMetricRow(title: localized("metric.report.cpuAverage"), value: percentageText(report.averageCPUPercent))
+                InlineMetricRow(title: localized("metric.report.memoryPattern"), value: memoryPatternText(report))
+                InlineMetricRow(title: localized("metric.report.batteryTrend"), value: batteryTrendText(report))
+                InlineMetricRow(
+                    title: localized("metric.report.networkPeak"),
+                    value: "\(rateText(report.downloadPeakBytesPerSecond)) / \(rateText(report.uploadPeakBytesPerSecond))"
+                )
+                InlineMetricRow(title: localized("metric.report.window"), value: reportWindowText(report))
+                InlineMetricRow(title: localized("metric.report.samples"), value: "\(report.sampleCount)")
+
+                Divider()
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(localized("report.insights.title"))
+                        .font(.callout.weight(.semibold))
+
+                    ForEach(Array(store.dailyInsights.enumerated()), id: \.offset) { _, insight in
+                        HStack(alignment: .top, spacing: 8) {
+                            Circle()
+                                .fill(Color.accentColor)
+                                .frame(width: 6, height: 6)
+                                .padding(.top, 6)
+
+                            Text(insight)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+            } else {
+                Text(localized("report.insight.collecting"))
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 
@@ -761,6 +847,44 @@ struct DashboardView: View {
         }
 
         return rateText(peak)
+    }
+
+    private func memoryPatternText(_ report: DailySystemReport) -> String {
+        guard let averageMemoryPercent = report.averageMemoryPercent else {
+            return localized("value.calibrating")
+        }
+
+        return localizedFormat("report.memory.pattern", averageMemoryPercent, report.memoryPeakPercent)
+    }
+
+    private func batteryTrendText(_ report: DailySystemReport) -> String {
+        guard report.batteryStartPercent != nil else {
+            return localized("report.battery.trend.unavailable")
+        }
+
+        if report.batteryDrainWhileOnBatteryPercent > 0 {
+            return localizedFormat("report.battery.trend.discharge", report.batteryDrainWhileOnBatteryPercent)
+        }
+
+        if let startPercent = report.batteryStartPercent,
+           let latestPercent = report.batteryLatestPercent,
+           latestPercent > startPercent {
+            return localizedFormat("report.battery.trend.charge", latestPercent - startPercent)
+        }
+
+        if report.batteryChargingSamples > report.batteryDischargingSamples {
+            return localized("report.battery.trend.charging")
+        }
+
+        return localized("report.battery.trend.stable")
+    }
+
+    private func reportWindowText(_ report: DailySystemReport) -> String {
+        guard report.monitoredDuration >= 60 else {
+            return localized("report.window.pending")
+        }
+
+        return localizedFormat("report.window.tracked", uptimeText(report.monitoredDuration))
     }
 
     private func localized(_ key: String) -> String {

@@ -2,7 +2,7 @@
 
 ## Summary
 
-Core Monitor does not require an account and does not collect analytics, tracking data, or personal profiles.
+Core-Monitor does not require an account and does not collect analytics, tracking data, or personal profiles.
 
 ## Data Collection
 
@@ -32,14 +32,24 @@ This information stays on the device and is used only to render the interface.
 
 ## Permissions
 
-The app requests location only when the user enables weather.
+The app requests location only after the user taps Enable Location in the Weather card.
 
 The app does not request camera, microphone, contacts, photos, accessibility, input monitoring, automation, or full disk access.
 
 ## Network Use
 
-The app uses the network only for WeatherKit data and the required Apple Weather attribution assets when the weather feature is active.
+The app uses the network for WeatherKit data, the required Apple Weather attribution assets, and Apple location services needed to resolve the local weather place name when the weather feature is active.
+
+## Retention and Deletion
+
+- This edition may store a small on-device daily history on your Mac to power recent trends and daily summaries.
+- This history stays local to the Mac and is not uploaded to Core-Monitor servers.
+- You can revoke location access in macOS System Settings or stop weather use in the app at any time.
 
 ## Contact
 
-Replace this section with the final support or privacy contact before release.
+For support or privacy questions, use the App Store edition support page:
+
+- https://offyotto-sl3.github.io/Core-Monitor/Mac-App-Store/support/
+- Legal owner and support contact: Nazish Faizan
+- Copyright © 2026 Nazish Faizan

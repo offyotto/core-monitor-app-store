@@ -5,7 +5,7 @@ enum AppStrings {
         "%@ unified memory • %@ • Uptime %@": "%1$@ unified memory • %2$@ • Uptime %3$@",
         "%@ • %@ • %@": "%1$@ • %2$@ • %3$@",
         "Apple Weather": "Apple Weather",
-        "Core Monitor": "Core Monitor",
+        "Core Monitor": "Core-Monitor",
         "Down": "Down",
         "Enable Location": "Enable Location",
         "Last updated": "Last updated",
@@ -18,7 +18,7 @@ enum AppStrings {
         "System Overview": "System Overview",
         "Up": "Up",
         "activity.loadExplanation": "A load average near 1.0 roughly equals one fully busy logical core.",
-        "app.name": "Core Monitor",
+        "app.name": "Core-Monitor",
         "badge.chip": "Chip",
         "badge.memory": "Memory",
         "badge.model": "Model",
@@ -39,6 +39,8 @@ enum AppStrings {
         "card.calendar.title": "Calendar",
         "card.cpu.description": "Overall processor load with performance and efficiency split.",
         "card.cpu.title": "CPU Activity",
+        "card.report.description": "Today's peaks, battery drift, and health insights from on-device monitoring.",
+        "card.report.title": "Daily System Report",
         "card.memory.description": "Current memory use, compression, and headroom.",
         "card.memory.title": "Memory",
         "card.network.description": "Current transfer rates across active interfaces.",
@@ -66,6 +68,8 @@ enum AppStrings {
         "label.current": "Current",
         "label.peak": "Peak",
         "label.recentSamples": "Last 90 seconds",
+        "link.privacyPolicy": "Privacy Policy",
+        "link.support": "Support",
         "memory.pressure.critical": "High",
         "memory.pressure.nominal": "Normal",
         "memory.pressure.warning": "Elevated",
@@ -75,6 +79,7 @@ enum AppStrings {
         "menu.refresh": "Refresh",
         "menu.section.trends": "Recent Trends",
         "menu.storage.free": "%.0f / %.0f GB free",
+        "menu.subtitle.readOnly": "Read-only Mac App Store edition",
         "menu.summary.battery": "Battery",
         "menu.summary.cores": "Cores",
         "menu.summary.cpu": "CPU",
@@ -82,7 +87,7 @@ enum AppStrings {
         "menu.summary.storage": "Storage",
         "menu.summary.thermal": "Thermal",
         "menu.summary.uptime": "Uptime",
-        "menu.title": "Core Monitor",
+        "menu.title": "Core-Monitor",
         "metric.battery.source": "Source",
         "metric.battery.status": "Status",
         "metric.battery.timeRemaining": "Time remaining",
@@ -105,6 +110,13 @@ enum AppStrings {
         "metric.network.up": "Up",
         "metric.performanceCores": "Performance cores",
         "metric.refresh": "Refresh",
+        "metric.report.batteryTrend": "Battery trend",
+        "metric.report.cpuAverage": "Avg CPU",
+        "metric.report.cpuPeak": "Peak CPU",
+        "metric.report.memoryPattern": "Memory pattern",
+        "metric.report.networkPeak": "Peak network",
+        "metric.report.samples": "Samples",
+        "metric.report.window": "Window",
         "metric.thermal.state": "Thermal state",
         "metric.thermal.status": "Status",
         "metric.thermal.warning": "Warning level",
@@ -120,6 +132,23 @@ enum AppStrings {
         "metric.weather.wind": "Wind",
         "power.source.ac": "AC power",
         "power.source.battery": "Battery",
+        "report.battery.trend.charge": "+%d%% while charging",
+        "report.battery.trend.charging": "Charging and recovering",
+        "report.battery.trend.discharge": "-%d%% on battery",
+        "report.battery.trend.stable": "Stable",
+        "report.battery.trend.unavailable": "No battery data yet",
+        "report.insight.battery.improved": "Battery drain is down %d%% versus yesterday.",
+        "report.insight.battery.increased": "Battery drain is up %d%% versus yesterday.",
+        "report.insight.collecting": "Collecting today's baseline.",
+        "report.insight.cpu.spike": "CPU peaked at %d%% today.",
+        "report.insight.memory.elevated": "Memory averaged %d%% today.",
+        "report.insight.stable": "System trends look stable so far.",
+        "report.insight.thermal.critical": "Thermal pressure reached a critical state today.",
+        "report.insight.thermal.serious": "Thermal pressure reached a serious state today.",
+        "report.insights.title": "Health insights",
+        "report.memory.pattern": "Avg %.0f%% • Peak %.0f%%",
+        "report.window.pending": "Starting now",
+        "report.window.tracked": "%@ monitored",
         "since boot": "since boot",
         "storage.free": "%.0f GB free",
         "storage.usage.detail": "%.0f / %.0f GB",
@@ -152,9 +181,10 @@ enum AppStrings {
         "weather.condition.snow": "Snow",
         "weather.condition.thunderstorm": "Thunderstorm",
         "weather.condition.weather": "Weather",
-        "weather.enable.body": "core-monitor requires your location to display the weather.",
+        "weather.enable.body": "Core-Monitor requires your location to display local weather.",
         "weather.enable.button": "Enable Location",
         "weather.enable.title": "Enable location to show local weather.",
+        "weather.attribution.title": "Sources & Legal",
         "weather.legal": "Legal",
         "weather.loading": "Loading weather…",
         "weather.location.local": "Local Weather",
@@ -167,11 +197,14 @@ enum AppStrings {
         "weather.status.locationNeeded": "Location needed",
         "weather.status.locationOff": "Location off",
         "weather.status.needsSignedBuild": "Needs signed build",
+        "weather.status.setupRequired": "Setup required",
         "weather.status.updating": "Updating",
         "weather.unavailable.generic": "Weather is unavailable right now.",
         "weather.unavailable.locationAccess": "Location access is off. Enable it in System Settings to display the weather.",
-        "weather.unavailable.locationRequired": "core-monitor requires your location to display the weather.",
+        "weather.unavailable.locationRequired": "Core-Monitor requires your location to display local weather.",
+        "weather.unavailable.network": "Apple Weather couldn't be reached right now. Check the network connection and try again.",
         "weather.unavailable.signedBuild": "Weather needs the WeatherKit capability in a signed build.",
+        "weather.unavailable.setupRequired": "WeatherKit couldn't authenticate this build. Enable WeatherKit for this App ID in Certificates, Identifiers & Profiles, then refresh the provisioning profile.",
     ]
 
     static func localized(_ key: String) -> String {
@@ -189,6 +222,11 @@ enum AppStrings {
     static func format(_ key: String, arguments: [CVarArg]) -> String {
         String(format: localized(key), locale: Locale.current, arguments: arguments)
     }
+}
+
+enum AppExternalLinks {
+    static let privacyPolicy = URL(string: "https://offyotto-sl3.github.io/Core-Monitor/Mac-App-Store/privacy/")!
+    static let support = URL(string: "https://offyotto-sl3.github.io/Core-Monitor/Mac-App-Store/support/")!
 }
 
 enum MemoryPressureState {
@@ -305,6 +343,134 @@ struct ActivitySnapshot {
 struct ThermalSnapshot {
     let state: ProcessInfo.ThermalState
     let warningLevel: ThermalWarningLevel
+}
+
+struct DailySystemReport: Codable, Identifiable {
+    let dayStart: Date
+    var firstSampleAt: Date
+    var lastSampleAt: Date
+    var sampleCount: Int
+    var cpuPeakPercent: Double
+    var cpuTotalPercent: Double
+    var cpuSampleCount: Int
+    var memoryPeakPercent: Double
+    var memoryTotalPercent: Double
+    var memorySampleCount: Int
+    var downloadPeakBytesPerSecond: Double
+    var uploadPeakBytesPerSecond: Double
+    var batteryStartPercent: Int?
+    var batteryLatestPercent: Int?
+    var batteryDrainWhileOnBatteryPercent: Int
+    var batteryDischargingSamples: Int
+    var batteryChargingSamples: Int
+    var batteryLowPercent: Int?
+    var batteryHighPercent: Int?
+    var lastBatteryPercent: Int?
+    var lastBatteryWasDischarging: Bool
+    var seriousThermalSamples: Int
+    var criticalThermalSamples: Int
+
+    var id: Date { dayStart }
+
+    var averageCPUPercent: Double? {
+        guard cpuSampleCount > 0 else { return nil }
+        return cpuTotalPercent / Double(cpuSampleCount)
+    }
+
+    var averageMemoryPercent: Double? {
+        guard memorySampleCount > 0 else { return nil }
+        return memoryTotalPercent / Double(memorySampleCount)
+    }
+
+    var monitoredDuration: TimeInterval {
+        max(lastSampleAt.timeIntervalSince(firstSampleAt), 0)
+    }
+
+    static func empty(for dayStart: Date, sampledAt: Date) -> DailySystemReport {
+        DailySystemReport(
+            dayStart: dayStart,
+            firstSampleAt: sampledAt,
+            lastSampleAt: sampledAt,
+            sampleCount: 0,
+            cpuPeakPercent: 0,
+            cpuTotalPercent: 0,
+            cpuSampleCount: 0,
+            memoryPeakPercent: 0,
+            memoryTotalPercent: 0,
+            memorySampleCount: 0,
+            downloadPeakBytesPerSecond: 0,
+            uploadPeakBytesPerSecond: 0,
+            batteryStartPercent: nil,
+            batteryLatestPercent: nil,
+            batteryDrainWhileOnBatteryPercent: 0,
+            batteryDischargingSamples: 0,
+            batteryChargingSamples: 0,
+            batteryLowPercent: nil,
+            batteryHighPercent: nil,
+            lastBatteryPercent: nil,
+            lastBatteryWasDischarging: false,
+            seriousThermalSamples: 0,
+            criticalThermalSamples: 0
+        )
+    }
+
+    mutating func record(sample: SystemSnapshot) {
+        if sampleCount == 0 {
+            firstSampleAt = sample.sampledAt
+        }
+
+        lastSampleAt = sample.sampledAt
+        sampleCount += 1
+
+        if let cpuPercent = sample.cpu.overallPercent {
+            cpuPeakPercent = max(cpuPeakPercent, cpuPercent)
+            cpuTotalPercent += cpuPercent
+            cpuSampleCount += 1
+        }
+
+        memoryPeakPercent = max(memoryPeakPercent, sample.memory.usagePercent)
+        memoryTotalPercent += sample.memory.usagePercent
+        memorySampleCount += 1
+
+        downloadPeakBytesPerSecond = max(downloadPeakBytesPerSecond, sample.network.downloadRateBytesPerSecond)
+        uploadPeakBytesPerSecond = max(uploadPeakBytesPerSecond, sample.network.uploadRateBytesPerSecond)
+
+        switch sample.thermal.state {
+        case .serious:
+            seriousThermalSamples += 1
+        case .critical:
+            criticalThermalSamples += 1
+        default:
+            break
+        }
+
+        guard sample.battery.isAvailable, let chargePercent = sample.battery.chargePercent else {
+            lastBatteryPercent = nil
+            lastBatteryWasDischarging = false
+            return
+        }
+
+        if batteryStartPercent == nil {
+            batteryStartPercent = chargePercent
+        }
+
+        batteryLatestPercent = chargePercent
+        batteryLowPercent = min(batteryLowPercent ?? chargePercent, chargePercent)
+        batteryHighPercent = max(batteryHighPercent ?? chargePercent, chargePercent)
+
+        let isDischarging = sample.battery.isCharging == false && sample.battery.isPluggedIn == false
+        if isDischarging {
+            batteryDischargingSamples += 1
+            if let lastBatteryPercent, lastBatteryWasDischarging, chargePercent < lastBatteryPercent {
+                batteryDrainWhileOnBatteryPercent += (lastBatteryPercent - chargePercent)
+            }
+        } else {
+            batteryChargingSamples += 1
+        }
+
+        lastBatteryPercent = chargePercent
+        lastBatteryWasDischarging = isDischarging
+    }
 }
 
 struct SystemSnapshot {

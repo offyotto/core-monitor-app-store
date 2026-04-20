@@ -1,6 +1,7 @@
 import Combine
 import CoreLocation
 import Foundation
+import OSLog
 import WeatherKit
 
 struct WeatherSnapshot: Sendable {
@@ -20,9 +21,11 @@ struct WeatherSnapshot: Sendable {
 }
 
 struct WeatherAttributionSnapshot: Sendable {
+    let serviceName: String
     let lightMarkURL: URL
     let darkMarkURL: URL
     let legalPageURL: URL
+    let legalAttributionText: String
 }
 
 enum WeatherState {
@@ -41,6 +44,7 @@ final class WeatherStore: NSObject, ObservableObject, CLLocationManagerDelegate 
 
     let refreshInterval: TimeInterval = 900
 
+    private let logger = Logger(subsystem: "CoreMonitorAppStore", category: "Weather")
     private let locationManager = CLLocationManager()
     private let service = WeatherService()
     private var isStarted = false
@@ -59,7 +63,6 @@ final class WeatherStore: NSObject, ObservableObject, CLLocationManagerDelegate 
         isStarted = true
 
         Task { @MainActor [weak self] in
-            await self?.loadAttributionIfNeeded()
             await self?.refreshNow()
         }
 
@@ -114,16 +117,13 @@ final class WeatherStore: NSObject, ObservableObject, CLLocationManagerDelegate 
 
         do {
             let weather = try await service.weather(for: location)
+            attribution = try await loadAttribution()
             let snapshot = await buildSnapshot(from: weather, location: location)
             state = .loaded(snapshot)
-        } catch let weatherKitError {
-            do {
-                attribution = nil
-                let fallbackSnapshot = try await fallbackSnapshot(for: location)
-                state = .loaded(fallbackSnapshot)
-            } catch {
-                state = .unavailable(weatherErrorMessage(for: weatherKitError))
-            }
+        } catch {
+            attribution = nil
+            logger.error("Weather refresh failed: \(self.describe(error), privacy: .public)")
+            state = .unavailable(weatherErrorMessage(for: error))
         }
     }
 
@@ -176,19 +176,21 @@ final class WeatherStore: NSObject, ObservableObject, CLLocationManagerDelegate 
         }
     }
 
-    private func loadAttributionIfNeeded() async {
-        guard attribution == nil else { return }
-
-        do {
-            let weatherAttribution = try await WeatherService.shared.attribution
-            attribution = WeatherAttributionSnapshot(
-                lightMarkURL: weatherAttribution.combinedMarkLightURL,
-                darkMarkURL: weatherAttribution.combinedMarkDarkURL,
-                legalPageURL: weatherAttribution.legalPageURL
-            )
-        } catch {
-            attribution = nil
+    private func loadAttribution() async throws -> WeatherAttributionSnapshot {
+        if let attribution {
+            return attribution
         }
+
+        let weatherAttribution = try await WeatherService.shared.attribution
+        let snapshot = WeatherAttributionSnapshot(
+            serviceName: weatherAttribution.serviceName,
+            lightMarkURL: weatherAttribution.combinedMarkLightURL,
+            darkMarkURL: weatherAttribution.combinedMarkDarkURL,
+            legalPageURL: weatherAttribution.legalPageURL,
+            legalAttributionText: weatherAttribution.legalAttributionText
+        )
+        attribution = snapshot
+        return snapshot
     }
 
     private func buildSnapshot(from weather: Weather, location: CLLocation) async -> WeatherSnapshot {
@@ -215,63 +217,6 @@ final class WeatherStore: NSObject, ObservableObject, CLLocationManagerDelegate 
         )
     }
 
-    private func fallbackSnapshot(for location: CLLocation) async throws -> WeatherSnapshot {
-        let response = try await fetchOpenMeteoForecast(for: location)
-        let locationName = await reverseGeocode(location)
-        let presentation = Self.openMeteoPresentation(
-            for: response.current.weatherCode,
-            isDay: response.current.isDay == 1
-        )
-
-        return WeatherSnapshot(
-            locationName: locationName,
-            sourceName: "Open-Meteo",
-            symbolName: presentation.symbolName,
-            condition: presentation.condition,
-            temperatureCelsius: response.current.temperature,
-            highCelsius: response.daily.temperatureMax.first ?? response.current.temperature,
-            lowCelsius: response.daily.temperatureMin.first ?? response.current.temperature,
-            feelsLikeCelsius: response.current.apparentTemperature,
-            humidityPercent: response.current.humidity,
-            windKilometersPerHour: response.current.windSpeed,
-            precipitationChancePercent: response.daily.precipitationProbabilityMax.first,
-            nextRainSummary: nextRainSummary(from: response),
-            updatedAt: Date()
-        )
-    }
-
-    private func fetchOpenMeteoForecast(for location: CLLocation) async throws -> OpenMeteoForecastResponse {
-        var components = URLComponents(string: "https://api.open-meteo.com/v1/forecast")
-        components?.queryItems = [
-            URLQueryItem(name: "latitude", value: String(location.coordinate.latitude)),
-            URLQueryItem(name: "longitude", value: String(location.coordinate.longitude)),
-            URLQueryItem(
-                name: "current",
-                value: "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,is_day"
-            ),
-            URLQueryItem(
-                name: "daily",
-                value: "temperature_2m_max,temperature_2m_min,precipitation_probability_max"
-            ),
-            URLQueryItem(name: "hourly", value: "precipitation_probability,weather_code"),
-            URLQueryItem(name: "forecast_days", value: "2"),
-            URLQueryItem(name: "timezone", value: "auto"),
-            URLQueryItem(name: "temperature_unit", value: "celsius"),
-            URLQueryItem(name: "wind_speed_unit", value: "kmh")
-        ]
-
-        guard let url = components?.url else {
-            throw URLError(.badURL)
-        }
-
-        let (data, response) = try await URLSession.shared.data(from: url)
-        guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-            throw URLError(.badServerResponse)
-        }
-
-        return try JSONDecoder().decode(OpenMeteoForecastResponse.self, from: data)
-    }
-
     private func nextRainSummary(from weather: Weather) -> String {
         let now = Date()
 
@@ -296,36 +241,6 @@ final class WeatherStore: NSObject, ObservableObject, CLLocationManagerDelegate 
         return localized("weather.rain.none")
     }
 
-    private func nextRainSummary(from forecast: OpenMeteoForecastResponse) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-        formatter.timeZone = TimeZone(secondsFromGMT: forecast.utcOffsetSeconds) ?? .current
-
-        let hours = zip(forecast.hourly.time, zip(forecast.hourly.precipitationProbability, forecast.hourly.weatherCode))
-        for (timeString, sample) in hours {
-            guard let date = formatter.date(from: timeString), date >= Date() else {
-                continue
-            }
-
-            let precipitationProbability = sample.0
-            let weatherCode = sample.1
-
-            if Self.isWetOpenMeteoCode(weatherCode), Calendar.current.isDateInToday(date), abs(date.timeIntervalSinceNow) < 3600 {
-                return localized("weather.rain.active")
-            }
-
-            if Self.isWetOpenMeteoCode(weatherCode) {
-                return localizedFormat("weather.rain.expected", Self.timeFormatter.string(from: date))
-            }
-
-            if precipitationProbability >= 35 {
-                return localizedFormat("weather.rain.chance", precipitationProbability, Self.timeFormatter.string(from: date))
-            }
-        }
-
-        return localized("weather.rain.none")
-    }
-
     private func reverseGeocode(_ location: CLLocation) async -> String {
         do {
             let placemarks = try await CLGeocoder().reverseGeocodeLocation(location)
@@ -343,23 +258,102 @@ final class WeatherStore: NSObject, ObservableObject, CLLocationManagerDelegate 
     }
 
     private func weatherErrorMessage(for error: Error) -> String {
-        let message = (error as NSError).localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        let nsError = error as NSError
+        let message = nsError.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        if message.isEmpty {
+        if isLocationError(nsError) {
+            return localized("weather.unavailable.locationAccess")
+        }
+
+        if isWeatherKitSetupError(nsError) {
+            return localized("weather.unavailable.setupRequired")
+        }
+
+        if isNetworkError(nsError) {
+            return localized("weather.unavailable.network")
+        }
+
+        if message.isEmpty || message == "(null)" {
             return localized("weather.unavailable.generic")
         }
 
-        let normalized = message.lowercased()
-        if normalized.contains("entitlement")
-            || normalized.contains("weatherkit")
-            || normalized.contains("not authorized")
-            || normalized.contains("weatherdaemon")
-            || normalized.contains("wdsjwt")
-            || normalized.contains("authenticatorserviceproxy") {
-            return localized("weather.unavailable.signedBuild")
+        return message
+    }
+
+    private func isLocationError(_ error: NSError) -> Bool {
+        if error.domain == kCLErrorDomain {
+            return true
         }
 
-        return message
+        if let underlyingError = error.userInfo[NSUnderlyingErrorKey] as? NSError {
+            return isLocationError(underlyingError)
+        }
+
+        return false
+    }
+
+    private func isWeatherKitSetupError(_ error: NSError) -> Bool {
+        let normalizedDomain = error.domain.lowercased()
+        let normalizedMessage = error.localizedDescription.lowercased()
+
+        if normalizedDomain.contains("wdsjwtauthenticatorservice")
+            || normalizedDomain.contains("weatherdaemon.wdsjwt") {
+            return true
+        }
+
+        if normalizedMessage.contains("invalidjwtresponse")
+            || normalizedMessage.contains("authenticatorserviceproxy")
+            || normalizedMessage.contains("authenticatorservicelistener")
+            || normalizedMessage.contains("weatherdaemon")
+            || normalizedMessage.contains("wdsjwt") {
+            return true
+        }
+
+        if error.code == 0 || error.code == 2, normalizedDomain.contains("weatherdaemon") {
+            return true
+        }
+
+        if let underlyingError = error.userInfo[NSUnderlyingErrorKey] as? NSError {
+            return isWeatherKitSetupError(underlyingError)
+        }
+
+        return false
+    }
+
+    private func isNetworkError(_ error: NSError) -> Bool {
+        if error.domain == NSURLErrorDomain {
+            return true
+        }
+
+        if let underlyingError = error.userInfo[NSUnderlyingErrorKey] as? NSError {
+            return isNetworkError(underlyingError)
+        }
+
+        return false
+    }
+
+    private func describe(_ error: Error) -> String {
+        let nsError = error as NSError
+        var segments = ["\(nsError.domain) code \(nsError.code)"]
+
+        let description = nsError.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        if description.isEmpty == false, description != "(null)" {
+            segments.append(description)
+        }
+
+        if let underlyingError = nsError.userInfo[NSUnderlyingErrorKey] as? NSError {
+            segments.append("underlying \(underlyingError.domain) code \(underlyingError.code)")
+        }
+
+        return segments.joined(separator: " | ")
+    }
+
+    private func localized(_ key: String) -> String {
+        AppStrings.localized(key)
+    }
+
+    private func localizedFormat(_ key: String, _ arguments: CVarArg...) -> String {
+        AppStrings.format(key, arguments: arguments)
     }
 
     private static func isFresh(_ location: CLLocation) -> Bool {
@@ -371,108 +365,10 @@ final class WeatherStore: NSObject, ObservableObject, CLLocationManagerDelegate 
         return rawValue.contains("rain") || rawValue.contains("drizzle") || rawValue.contains("thunder")
     }
 
-    private static func isWetOpenMeteoCode(_ code: Int) -> Bool {
-        switch code {
-        case 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99:
-            return true
-        default:
-            return false
-        }
-    }
-
-    private static func openMeteoPresentation(for code: Int, isDay: Bool) -> (symbolName: String, condition: String) {
-        switch code {
-        case 0:
-            return (isDay ? "sun.max.fill" : "moon.stars.fill", AppStrings.localized("weather.condition.clear"))
-        case 1:
-            return (isDay ? "sun.max.fill" : "moon.stars.fill", AppStrings.localized("weather.condition.mainlyClear"))
-        case 2:
-            return (isDay ? "cloud.sun.fill" : "cloud.moon.fill", AppStrings.localized("weather.condition.partlyCloudy"))
-        case 3:
-            return ("cloud.fill", AppStrings.localized("weather.condition.overcast"))
-        case 45, 48:
-            return ("cloud.fog.fill", AppStrings.localized("weather.condition.fog"))
-        case 51, 53, 55, 56, 57:
-            return ("cloud.drizzle.fill", AppStrings.localized("weather.condition.drizzle"))
-        case 61, 63, 65, 66, 67, 80, 81, 82:
-            return ("cloud.rain.fill", AppStrings.localized("weather.condition.rain"))
-        case 71, 73, 75, 77, 85, 86:
-            return ("cloud.snow.fill", AppStrings.localized("weather.condition.snow"))
-        case 95, 96, 99:
-            return ("cloud.bolt.rain.fill", AppStrings.localized("weather.condition.thunderstorm"))
-        default:
-            return ("cloud.fill", AppStrings.localized("weather.condition.weather"))
-        }
-    }
-
-    private func localized(_ key: String) -> String {
-        AppStrings.localized(key)
-    }
-
-    private func localizedFormat(_ key: String, _ arguments: CVarArg...) -> String {
-        AppStrings.format(key, arguments: arguments)
-    }
-
     private static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         formatter.dateStyle = .none
         return formatter
     }()
-}
-
-private struct OpenMeteoForecastResponse: Decodable {
-    let utcOffsetSeconds: Int
-    let current: Current
-    let daily: Daily
-    let hourly: Hourly
-
-    enum CodingKeys: String, CodingKey {
-        case utcOffsetSeconds = "utc_offset_seconds"
-        case current
-        case daily
-        case hourly
-    }
-
-    struct Current: Decodable {
-        let temperature: Double
-        let humidity: Int
-        let apparentTemperature: Double
-        let weatherCode: Int
-        let windSpeed: Double
-        let isDay: Int
-
-        enum CodingKeys: String, CodingKey {
-            case temperature = "temperature_2m"
-            case humidity = "relative_humidity_2m"
-            case apparentTemperature = "apparent_temperature"
-            case weatherCode = "weather_code"
-            case windSpeed = "wind_speed_10m"
-            case isDay = "is_day"
-        }
-    }
-
-    struct Daily: Decodable {
-        let temperatureMax: [Double]
-        let temperatureMin: [Double]
-        let precipitationProbabilityMax: [Int]
-
-        enum CodingKeys: String, CodingKey {
-            case temperatureMax = "temperature_2m_max"
-            case temperatureMin = "temperature_2m_min"
-            case precipitationProbabilityMax = "precipitation_probability_max"
-        }
-    }
-
-    struct Hourly: Decodable {
-        let time: [String]
-        let precipitationProbability: [Int]
-        let weatherCode: [Int]
-
-        enum CodingKeys: String, CodingKey {
-            case time
-            case precipitationProbability = "precipitation_probability"
-            case weatherCode = "weather_code"
-        }
-    }
 }

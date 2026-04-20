@@ -8,7 +8,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "core-monitor"
+            "value" : "Core-Monitor"
           }
         }
       }
@@ -20,7 +20,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "core-monitor"
+            "value" : "Core-Monitor"
           }
         }
       }
@@ -32,7 +32,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copyright 2026 CoreTools"
+            "value" : "Copyright 2026 Nazish Faizan"
           }
         }
       }
@@ -170,7 +170,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "core-monitor requires your location to display the weather."
+            "value" : "Core-Monitor requires your location to display local weather."
           }
         },
         "eo" : {
@@ -842,7 +842,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "core-monitor requires your location to display the weather."
+            "value" : "Core-Monitor requires your location to display local weather."
           }
         },
         "eo" : {
