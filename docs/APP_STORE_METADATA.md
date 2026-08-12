@@ -1,4 +1,4 @@
-# Store Metadata Draft
+# Store Metadata
 
 ## App Name
 
