@@ -41,7 +41,7 @@ The legacy `Core-Monitor` target in the repository still contains helper-driven 
 
 - `Core-Monitor requires your location to display the weather.`
 
-## Manual review items that still remain
+## Manual review items for future releases
 
 - final signing identity and provisioning profile
 - local archive and organizer validation in Xcode

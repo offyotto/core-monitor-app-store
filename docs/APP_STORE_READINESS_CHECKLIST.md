@@ -18,4 +18,4 @@
 | Privacy policy matches current behavior | PASS | Privacy text includes location and network use for weather. |
 | Clean local build | PASS | Verified with a signed debug build using `xcodebuild ... -allowProvisioningUpdates build`. |
 | Launch and signed-weather verification | NEEDS MANUAL REVIEW | Confirm on a signed desktop build with WeatherKit enabled. |
-| Final submission review outcome | NEEDS MANUAL REVIEW | Final review still depends on the signed archive and submission date. |
+| Published App Store listing | PASS | Core-Monitor version 2.0 is available at [Apple app ID 6762558526](https://apps.apple.com/us/app/core-monitor/id6762558526). |

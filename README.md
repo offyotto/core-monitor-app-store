@@ -1,6 +1,6 @@
 # core-monitor-app-store
 
-`core-monitor-app-store` is the sandboxed store edition of Core Monitor.
+`core-monitor-app-store` is the source code for the sandboxed Core-Monitor edition [available free on the Mac App Store](https://apps.apple.com/us/app/core-monitor/id6762558526).
 
 ## What it includes
 
@@ -53,4 +53,3 @@ xcodebuild -project core-monitor-app-store.xcodeproj -scheme core-monitor-app-st
 
 - Weather uses a signed WeatherKit path first and falls back to a forecast fetch when Apple Weather auth is unavailable on the local machine.
 - Exact CPU temperature is not available through the system frameworks used here, so the thermal card relies on the thermal signals macOS publishes instead.
-- Final archive, signing, and release validation still need to happen in Xcode.
