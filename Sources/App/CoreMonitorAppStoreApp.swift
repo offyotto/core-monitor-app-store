@@ -8,14 +8,15 @@ struct CoreMonitorAppStoreApp: App {
     @StateObject private var weatherStore = WeatherStore()
 
     var body: some Scene {
-        WindowGroup(AppStrings.localized("app.name"), id: Self.dashboardWindowID) {
+        Window("Core-Monitor", id: Self.dashboardWindowID) {
             DashboardView(store: store, weatherStore: weatherStore)
-                .frame(minWidth: 940, minHeight: 720)
-                .task {
-                    weatherStore.start()
-                }
+                .frame(minWidth: 760, minHeight: 520)
         }
-        .defaultSize(width: 1120, height: 820)
+        .defaultSize(width: 1040, height: 720)
+        .windowToolbarStyle(.unified(showsTitle: true))
+        .commands {
+            CommandGroup(replacing: .newItem) {}
+        }
 
         MenuBarExtra {
             MenuBarContentView(store: store, weatherStore: weatherStore)
@@ -23,5 +24,9 @@ struct CoreMonitorAppStoreApp: App {
             MenuBarLabelView(snapshot: store.snapshot)
         }
         .menuBarExtraStyle(.window)
+
+        Settings {
+            SettingsView()
+        }
     }
 }

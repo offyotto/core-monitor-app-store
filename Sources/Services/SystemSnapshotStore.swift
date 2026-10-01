@@ -1,61 +1,73 @@
-import Foundation
 import Combine
+import Foundation
+
+enum SettingsKey {
+    static let sampleInterval = "sampleInterval"
+    static let weatherEnabled = "weatherEnabled"
+    static let menuBarShowsCPU = "menuBarShowsCPU"
+    static let menuBarShowsMemory = "menuBarShowsMemory"
+    static let menuBarShowsNetwork = "menuBarShowsNetwork"
+}
 
 @MainActor
 final class SystemSnapshotStore: ObservableObject {
     @Published private(set) var snapshot: SystemSnapshot
-    @Published private(set) var cpuHistory: [Double] = []
-    @Published private(set) var memoryHistory: [Double] = []
-    @Published private(set) var downloadHistory: [Double] = []
-    @Published private(set) var uploadHistory: [Double] = []
+    @Published private(set) var history: [MetricSample] = []
 
-    let refreshInterval: TimeInterval = 1.5
-
+    /// Three minutes of history at the default two-second interval.
+    private let historyLimit = 90
     private let monitor = PublicSystemMonitor()
     private var timer: Timer?
-    private let historyLimit = 60
+    private var intervalObserver: AnyCancellable?
 
     init() {
-        let initialSnapshot = monitor.sample()
-        snapshot = initialSnapshot
-        appendHistory(sample: initialSnapshot)
-        start()
-    }
+        UserDefaults.standard.register(defaults: [SettingsKey.sampleInterval: 2.0])
+        snapshot = monitor.sample()
+        startTimer()
 
-    deinit {
-        timer?.invalidate()
-    }
-
-    func refreshNow() {
-        let nextSnapshot = monitor.sample()
-        snapshot = nextSnapshot
-        appendHistory(sample: nextSnapshot)
-    }
-
-    private func start() {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true) { [weak self] _ in
-            Task { @MainActor [weak self] in
-                self?.refreshNow()
+        intervalObserver = NotificationCenter.default
+            .publisher(for: UserDefaults.didChangeNotification)
+            .compactMap { _ in UserDefaults.standard.double(forKey: SettingsKey.sampleInterval) }
+            .removeDuplicates()
+            .sink { [weak self] _ in
+                Task { @MainActor in self?.restartIfIntervalChanged() }
             }
-        }
-        timer?.tolerance = 0.4
-        if let timer {
-            RunLoop.main.add(timer, forMode: .common)
-        }
     }
 
-    private func appendHistory(sample: SystemSnapshot) {
-        append(sample.cpu.overallPercent ?? 0, to: &cpuHistory)
-        append(sample.memory.usagePercent, to: &memoryHistory)
-        append(sample.network.downloadRateBytesPerSecond, to: &downloadHistory)
-        append(sample.network.uploadRateBytesPerSecond, to: &uploadHistory)
+    private var interval: TimeInterval {
+        let value = UserDefaults.standard.double(forKey: SettingsKey.sampleInterval)
+        return value >= 1 ? value : 2
     }
 
-    private func append(_ value: Double, to series: inout [Double]) {
-        series.append(max(0, value))
-        if series.count > historyLimit {
-            series.removeFirst(series.count - historyLimit)
+    private func restartIfIntervalChanged() {
+        guard let timer, timer.timeInterval != interval else { return }
+        startTimer()
+    }
+
+    private func startTimer() {
+        timer?.invalidate()
+        let timer = Timer(timeInterval: interval, repeats: true) { [weak self] _ in
+            Task { @MainActor in self?.sample() }
+        }
+        timer.tolerance = interval * 0.2
+        RunLoop.main.add(timer, forMode: .common)
+        self.timer = timer
+    }
+
+    private func sample() {
+        let next = monitor.sample()
+        snapshot = next
+        history.append(
+            MetricSample(
+                date: next.sampledAt,
+                cpu: next.cpu.overallPercent,
+                memory: next.memory.usagePercent,
+                download: next.network.downloadBytesPerSecond,
+                upload: next.network.uploadBytesPerSecond
+            )
+        )
+        if history.count > historyLimit {
+            history.removeFirst(history.count - historyLimit)
         }
     }
 }

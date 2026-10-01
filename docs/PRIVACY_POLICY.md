@@ -26,19 +26,19 @@ The app reads limited device status locally to show:
 - network throughput
 - startup disk usage
 - uptime and load averages
-- local weather when the user grants location access
+- local weather, only after the user turns on weather and allows location access
 
 This information stays on the device and is used only to render the interface.
 
 ## Permissions
 
-The app requests location only when the user enables weather.
+Weather is off by default. The app requests location only after the user turns on weather in Settings. Turning weather off stops all location and weather requests.
 
 The app does not request camera, microphone, contacts, photos, accessibility, input monitoring, automation, or full disk access.
 
 ## Network Use
 
-The app uses the network only for WeatherKit data and the required Apple Weather attribution assets when the weather feature is active.
+The app uses the network only when weather is on: to request the forecast from Apple WeatherKit, to look up the city name with Apple's geocoding service, and to load the required Apple Weather attribution. No other service receives the user's location.
 
 ## Contact
 coremonitor.app@gmail.com

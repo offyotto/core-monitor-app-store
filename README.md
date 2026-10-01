@@ -4,16 +4,16 @@
 
 ## What it includes
 
-- live CPU activity with performance/efficiency splits
-- per-core monitoring
-- memory usage and pressure
-- thermal state and thermal warning level
-- network throughput
+- a sidebar window with a page for each subsystem: CPU, memory, storage, network, power, thermal, and weather
+- three minutes of live history in Swift Charts
+- CPU usage split by performance and efficiency cores, per-core load, load averages, and uptime
+- memory usage, pressure, and breakdown
 - startup disk usage
-- uptime and load averages
-- battery and power-source status on supported Macs
-- local weather when the user grants location access
-- a SwiftUI dashboard and menu bar extra
+- download and upload rates
+- battery charge, health, and time remaining on Mac laptops
+- the thermal state macOS reports
+- optional local weather from Apple WeatherKit, off by default
+- a menu bar extra with configurable readouts
 
 ## What it excludes
 
@@ -51,5 +51,5 @@ xcodebuild -project core-monitor-app-store.xcodeproj -scheme core-monitor-app-st
 
 ## Notes
 
-- Weather uses a signed WeatherKit path first and falls back to a forecast fetch when Apple Weather auth is unavailable on the local machine.
-- Exact CPU temperature is not available through the system frameworks used here, so the thermal card relies on the thermal signals macOS publishes instead.
+- Weather is off until it is turned on in Settings. It needs a signed build with the WeatherKit capability, and Apple WeatherKit is its only source.
+- Exact CPU temperature is not available to sandboxed apps, so the Thermal page shows the thermal state macOS reports.

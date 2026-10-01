@@ -1,31 +1,290 @@
+import Charts
 import SwiftUI
 
-struct DashboardCard<Content: View>: View {
-    let title: String
-    let systemImage: String
-    let description: String?
-    @ViewBuilder let content: () -> Content
+// MARK: - Formatting
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            Label(title, systemImage: systemImage)
-                .font(.headline)
+enum Format {
+    static func percent(_ value: Double?) -> String {
+        guard let value else { return "—" }
+        return "\(Int(value.rounded()))%"
+    }
 
-            if let description {
-                Text(description)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
+    static func bytes(_ value: Int64?) -> String {
+        guard let value else { return "—" }
+        return ByteCountFormatter.string(fromByteCount: value, countStyle: .file)
+    }
 
-            content()
-        }
-        .padding(18)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+    /// Memory uses binary units so a 16 GB Mac reads as 16 GB, matching About This Mac.
+    static func gigabytes(_ value: Double) -> String {
+        ByteCountFormatter.string(fromByteCount: Int64(value * 1_073_741_824), countStyle: .memory)
+    }
+
+    private static let rateFormatter: ByteCountFormatter = {
+        let formatter = ByteCountFormatter()
+        formatter.countStyle = .binary
+        formatter.allowsNonnumericFormatting = false
+        formatter.allowedUnits = [.useKB, .useMB, .useGB]
+        return formatter
+    }()
+
+    static func rate(_ bytesPerSecond: Double) -> String {
+        rateFormatter.string(fromByteCount: Int64(max(0, bytesPerSecond))) + "/s"
+    }
+
+    static func duration(_ interval: TimeInterval) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = interval >= 86_400 ? [.day, .hour] : [.hour, .minute]
+        formatter.unitsStyle = .abbreviated
+        return formatter.string(from: interval) ?? "—"
+    }
+
+    static func minutes(_ minutes: Int?) -> String {
+        guard let minutes else { return "—" }
+        return duration(TimeInterval(minutes * 60))
+    }
+
+    static func load(_ value: Double?) -> String {
+        guard let value else { return "—" }
+        return value.formatted(.number.precision(.fractionLength(2)))
+    }
+
+    static func temperature(_ value: Measurement<UnitTemperature>?) -> String {
+        guard let value else { return "—" }
+        return value.formatted(.measurement(width: .narrow, numberFormatStyle: .number.precision(.fractionLength(0))))
     }
 }
 
-struct InlineMetricRow: View {
+// MARK: - Metric colors
+// Each metric keeps one tint everywhere it appears, so color always means the same thing.
+
+extension Color {
+    static let cpuTint = Color.blue
+    static let memoryTint = Color.purple
+    static let storageTint = Color.indigo
+    static let downloadTint = Color.teal
+    static let uploadTint = Color.orange
+    static let powerTint = Color.green
+}
+
+extension MemoryPressureState {
+    var title: String {
+        switch self {
+        case .nominal: "Normal"
+        case .warning: "Elevated"
+        case .critical: "High"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .nominal: .green
+        case .warning: .yellow
+        case .critical: .red
+        }
+    }
+}
+
+extension ProcessInfo.ThermalState {
+    var title: String {
+        switch self {
+        case .nominal: "Nominal"
+        case .fair: "Fair"
+        case .serious: "Serious"
+        case .critical: "Critical"
+        @unknown default: "Unknown"
+        }
+    }
+
+    var detail: String {
+        switch self {
+        case .nominal: "Running normally."
+        case .fair: "Slightly warm. Performance is unaffected."
+        case .serious: "Hot. macOS may slow the system to cool it down."
+        case .critical: "Very hot. macOS is reducing performance."
+        @unknown default: "Thermal state is unavailable."
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .nominal: .green
+        case .fair: .yellow
+        case .serious: .orange
+        case .critical: .red
+        @unknown default: .secondary
+        }
+    }
+}
+
+extension ThermalWarningLevel {
+    var title: String {
+        switch self {
+        case .normal: "Normal"
+        case .warning: "Warning"
+        case .critical: "Critical"
+        case .unavailable: "Not reported"
+        }
+    }
+}
+
+extension BatterySnapshot {
+    var statusTitle: String {
+        if isCharging { return "Charging" }
+        if isPluggedIn { return "On power adapter" }
+        return "On battery"
+    }
+
+    var symbolName: String {
+        guard isAvailable, let chargePercent else { return "powerplug" }
+        if isCharging { return "battery.100percent.bolt" }
+        switch chargePercent {
+        case 88...: return "battery.100percent"
+        case 63..<88: return "battery.75percent"
+        case 38..<63: return "battery.50percent"
+        case 13..<38: return "battery.25percent"
+        default: return "battery.0percent"
+        }
+    }
+}
+
+// MARK: - Charts
+
+/// Charts always span the same three minutes, so a fresh launch fills in from the right
+/// instead of stretching a few samples across the whole width.
+func historyWindow(_ samples: [MetricSample]) -> ClosedRange<Date> {
+    let end = samples.last?.date ?? Date()
+    return end.addingTimeInterval(-180)...end
+}
+
+/// Small sparklines fit whatever history exists so they read well right after launch.
+func fittedWindow(_ samples: [MetricSample]) -> ClosedRange<Date> {
+    guard let first = samples.first?.date, let last = samples.last?.date, last > first else {
+        return historyWindow(samples)
+    }
+    return first...last
+}
+
+struct PercentHistoryChart: View {
+    let samples: [MetricSample]
+    let value: KeyPath<MetricSample, Double?>
+    let tint: Color
+    var showsAxes = true
+
+    var body: some View {
+        Chart {
+            ForEach(samples) { sample in
+                if let y = sample[keyPath: value] {
+                    AreaMark(x: .value("Time", sample.date), y: .value("Percent", y))
+                        .foregroundStyle(tint.opacity(0.18))
+                        .interpolationMethod(.monotone)
+                    LineMark(x: .value("Time", sample.date), y: .value("Percent", y))
+                        .foregroundStyle(tint)
+                        .lineStyle(StrokeStyle(lineWidth: 1.5))
+                        .interpolationMethod(.monotone)
+                }
+            }
+        }
+        .chartYScale(domain: 0...100)
+        .chartXScale(domain: showsAxes ? historyWindow(samples) : fittedWindow(samples))
+        .chartXAxis(.hidden)
+        .chartYAxis {
+            if showsAxes {
+                AxisMarks(position: .trailing, values: [0, 50, 100]) { mark in
+                    AxisGridLine()
+                    AxisValueLabel { Text("\(mark.as(Int.self) ?? 0)%") }
+                }
+            }
+        }
+        .accessibilityHidden(!showsAxes)
+    }
+}
+
+struct NetworkHistoryChart: View {
+    let samples: [MetricSample]
+    var showsAxes = true
+
+    var body: some View {
+        Chart {
+            ForEach(samples) { sample in
+                LineMark(x: .value("Time", sample.date), y: .value("Rate", sample.download), series: .value("Direction", "Download"))
+                    .foregroundStyle(Color.downloadTint)
+                    .lineStyle(StrokeStyle(lineWidth: 1.5))
+                    .interpolationMethod(.monotone)
+                LineMark(x: .value("Time", sample.date), y: .value("Rate", sample.upload), series: .value("Direction", "Upload"))
+                    .foregroundStyle(Color.uploadTint)
+                    .lineStyle(StrokeStyle(lineWidth: 1.5))
+                    .interpolationMethod(.monotone)
+            }
+        }
+        .chartXScale(domain: showsAxes ? historyWindow(samples) : fittedWindow(samples))
+        .chartXAxis(.hidden)
+        .chartYAxis {
+            if showsAxes {
+                AxisMarks(position: .trailing, values: .automatic(desiredCount: 3)) { mark in
+                    AxisGridLine()
+                    AxisValueLabel { Text(Format.rate(mark.as(Double.self) ?? 0)) }
+                }
+            }
+        }
+        .accessibilityHidden(!showsAxes)
+    }
+}
+
+// MARK: - Layout pieces
+
+/// The one card style in the app: a quiet filled rounded rectangle, no shadow.
+struct Panel<Content: View>: View {
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        content
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(.fill.quinary, in: .rect(cornerRadius: 12))
+    }
+}
+
+struct SectionHeading: View {
+    let title: String
+    var trailing: String?
+
+    var body: some View {
+        HStack(alignment: .firstTextBaseline) {
+            Text(title)
+                .font(.headline)
+            Spacer()
+            if let trailing {
+                Text(trailing)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .monospacedDigit()
+            }
+        }
+    }
+}
+
+/// A large live value with its label, used at the top of each detail page.
+struct HeadlineValue: View {
+    let value: String
+    let label: String
+    var tint: Color = .primary
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(value)
+                .font(.system(size: 34, weight: .semibold, design: .rounded))
+                .foregroundStyle(tint)
+                .monospacedDigit()
+                .contentTransition(.numericText())
+            Text(label)
+                .font(.callout)
+                .foregroundStyle(.secondary)
+        }
+        .accessibilityElement(children: .combine)
+    }
+}
+
+struct DetailRow: View {
     let title: String
     let value: String
 
@@ -38,247 +297,41 @@ struct InlineMetricRow: View {
                 .monospacedDigit()
                 .multilineTextAlignment(.trailing)
         }
-        .font(.callout)
+        .accessibilityElement(children: .combine)
     }
 }
 
-struct CompactMetricMeter: View {
+/// An icon and title with a fixed icon column, so rows with different symbols line up.
+struct RowLabel: View {
     let title: String
-    let subtitle: String
-    let value: Double?
-    let tint: Color
+    let symbol: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .firstTextBaseline) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(.callout.weight(.semibold))
-                    Text(subtitle)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-
-                Spacer()
-
-                Text(valueText)
-                    .font(.callout.weight(.semibold))
-                    .monospacedDigit()
-            }
-
-            ProgressView(value: value ?? 0, total: 100)
-                .tint(tint)
-        }
-        .padding(12)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-    }
-
-    private var valueText: String {
-        guard let value else {
-            return "--"
-        }
-
-        return String(format: "%.0f%%", value)
-    }
-}
-
-struct TrendMetricRow: View {
-    let title: String
-    let current: String
-    let peak: String
-    let values: [Double]
-    let tint: Color
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .firstTextBaseline) {
-                Text(title)
-                    .font(.callout.weight(.semibold))
-
-                Spacer()
-
-                Text(current)
-                    .font(.callout.weight(.semibold))
-                    .foregroundStyle(tint)
-                    .monospacedDigit()
-            }
-
-            TrendSparkline(values: values, tint: tint)
-
-            HStack {
-                Text(AppStrings.localized("label.recentSamples"))
-                    .foregroundStyle(.secondary)
-
-                Spacer()
-
-                Text("\(AppStrings.localized("label.peak")) \(peak)")
-                    .foregroundStyle(.secondary)
-                    .monospacedDigit()
-            }
-            .font(.caption)
+        HStack(spacing: 8) {
+            Image(systemName: symbol)
+                .foregroundStyle(.secondary)
+                .frame(width: 18)
+            Text(title)
         }
     }
 }
 
-struct TrendSparkline: View {
-    let values: [Double]
+struct UsageBar: View {
+    let percent: Double?
     let tint: Color
-    var height: CGFloat = 28
+    var height: CGFloat = 6
 
     var body: some View {
-        GeometryReader { geometry in
-            let points = normalizedPoints(in: geometry.size)
-
-            ZStack(alignment: .bottomLeading) {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .fill(tint.opacity(0.08))
-
-                if points.count > 1 {
-                    Path { path in
-                        path.move(to: CGPoint(x: points[0].x, y: geometry.size.height))
-                        for point in points {
-                            path.addLine(to: point)
-                        }
-                        path.addLine(to: CGPoint(x: points.last?.x ?? 0, y: geometry.size.height))
-                        path.closeSubpath()
-                    }
-                    .fill(
-                        LinearGradient(
-                            colors: [tint.opacity(0.25), tint.opacity(0.03)],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-
-                    Path { path in
-                        path.move(to: points[0])
-                        for point in points.dropFirst() {
-                            path.addLine(to: point)
-                        }
-                    }
-                    .stroke(tint, style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                } else {
-                    Rectangle()
-                        .fill(tint.opacity(0.35))
-                        .frame(height: 2)
-                        .frame(maxHeight: .infinity, alignment: .center)
-                }
+        GeometryReader { proxy in
+            ZStack(alignment: .leading) {
+                Capsule().fill(.fill.tertiary)
+                Capsule()
+                    .fill(tint)
+                    .frame(width: proxy.size.width * CGFloat(min(max((percent ?? 0) / 100, 0), 1)))
             }
         }
         .frame(height: height)
-        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .animation(.smooth(duration: 0.4), value: percent)
+        .accessibilityHidden(true)
     }
-
-    private func normalizedPoints(in size: CGSize) -> [CGPoint] {
-        guard values.isEmpty == false else { return [] }
-        guard values.count > 1 else {
-            return [CGPoint(x: 0, y: size.height / 2)]
-        }
-
-        let minimum = values.min() ?? 0
-        let maximum = values.max() ?? minimum
-        let span = max(maximum - minimum, 0.0001)
-        let widthStep = size.width / CGFloat(max(values.count - 1, 1))
-        let inset: CGFloat = 2
-        let usableHeight = max(size.height - (inset * 2), 1)
-
-        return values.enumerated().map { index, value in
-            let normalized = (value - minimum) / span
-            let x = CGFloat(index) * widthStep
-            let y = inset + (usableHeight * CGFloat(1 - normalized))
-            return CGPoint(x: x, y: y)
-        }
-    }
-}
-
-struct CalendarMonthPanel: View {
-    var referenceDate: Date = .now
-
-    private let calendar = Calendar.autoupdatingCurrent
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(referenceDate.formatted(.dateTime.month(.wide).year()))
-                        .font(.headline)
-
-                    Text(referenceDate.formatted(.dateTime.weekday(.wide).day().month(.abbreviated)))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-
-                Spacer()
-
-                Text(TimeZone.current.localizedName(for: .shortStandard, locale: .current) ?? TimeZone.current.identifier)
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-            }
-
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 7), spacing: 6) {
-                ForEach(weekdaySymbols, id: \.self) { symbol in
-                    Text(symbol)
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity)
-                }
-
-                ForEach(days, id: \.date) { day in
-                    dayCell(day)
-                }
-            }
-        }
-    }
-
-    private var weekdaySymbols: [String] {
-        let symbols = calendar.veryShortStandaloneWeekdaySymbols
-        let startIndex = max(calendar.firstWeekday - 1, 0)
-        return Array(symbols[startIndex...]) + Array(symbols[..<startIndex])
-    }
-
-    private var days: [CalendarMonthDay] {
-        guard
-            let monthInterval = calendar.dateInterval(of: .month, for: referenceDate),
-            let daysRange = calendar.range(of: .day, in: .month, for: monthInterval.start)
-        else {
-            return []
-        }
-
-        let firstWeekday = calendar.component(.weekday, from: monthInterval.start)
-        let leadingDayCount = (firstWeekday - calendar.firstWeekday + 7) % 7
-        let totalDayCount = daysRange.count
-        let trailingDayCount = (7 - ((leadingDayCount + totalDayCount) % 7)) % 7
-
-        return (0..<(leadingDayCount + totalDayCount + trailingDayCount)).compactMap { index in
-            guard let date = calendar.date(byAdding: .day, value: index - leadingDayCount, to: monthInterval.start) else {
-                return nil
-            }
-            let isCurrentMonth = calendar.isDate(date, equalTo: monthInterval.start, toGranularity: .month)
-            return CalendarMonthDay(date: date, isCurrentMonth: isCurrentMonth)
-        }
-    }
-
-    @ViewBuilder
-    private func dayCell(_ day: CalendarMonthDay) -> some View {
-        let isToday = calendar.isDateInToday(day.date)
-
-        Text(dayLabel(for: day.date))
-            .font(.caption.weight(.semibold))
-            .monospacedDigit()
-            .foregroundStyle(isToday ? Color.white : day.isCurrentMonth ? Color.primary : Color.secondary)
-            .frame(maxWidth: .infinity, minHeight: 28)
-            .background(
-                RoundedRectangle(cornerRadius: 9, style: .continuous)
-                    .fill(isToday ? Color.accentColor : Color.secondary.opacity(day.isCurrentMonth ? 0.08 : 0.04))
-            )
-    }
-
-    private func dayLabel(for date: Date) -> String {
-        String(calendar.component(.day, from: date))
-    }
-}
-
-private struct CalendarMonthDay {
-    let date: Date
-    let isCurrentMonth: Bool
 }

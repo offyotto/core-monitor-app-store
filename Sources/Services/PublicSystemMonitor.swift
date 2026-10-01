@@ -277,23 +277,20 @@ final class PublicSystemMonitor {
         let isCharging = (description[kIOPSIsChargingKey as String] as? Bool) ?? false
         let powerSource = description[kIOPSPowerSourceStateKey as String] as? String
         let isPluggedIn = powerSource == (kIOPSACPowerValue as String)
+        let health = description[kIOPSBatteryHealthKey as String] as? String
 
-        let timeRemaining: Int?
-        if let minutes = description[kIOPSTimeToEmptyKey as String] as? Int, minutes >= 0 {
-            timeRemaining = minutes
-        } else if let minutes = description[kIOPSTimeToFullChargeKey as String] as? Int, minutes >= 0 {
-            timeRemaining = minutes
-        } else {
-            timeRemaining = nil
-        }
+        // macOS reports -1 while it is still estimating and 0 when the value does not apply.
+        let timeKey = isCharging ? kIOPSTimeToFullChargeKey : kIOPSTimeToEmptyKey
+        let reportedMinutes = description[timeKey as String] as? Int
+        let timeRemaining = (isCharging || !isPluggedIn) && (reportedMinutes ?? 0) > 0 ? reportedMinutes : nil
 
         return BatterySnapshot(
             isAvailable: true,
             chargePercent: chargePercent,
             isCharging: isCharging,
             isPluggedIn: isPluggedIn,
-            powerSource: powerSource,
             timeRemainingMinutes: timeRemaining,
+            health: health,
             lowPowerModeEnabled: lowPowerModeEnabled
         )
     }
@@ -333,7 +330,6 @@ final class PublicSystemMonitor {
 
         var receivedBytes: UInt64 = 0
         var transmittedBytes: UInt64 = 0
-        var activeInterfaceCount = 0
 
         for interface in sequence(first: firstInterface, next: { $0.pointee.ifa_next }) {
             guard let address = interface.pointee.ifa_addr else { continue }
@@ -345,7 +341,6 @@ final class PublicSystemMonitor {
 
             receivedBytes += UInt64(data.pointee.ifi_ibytes)
             transmittedBytes += UInt64(data.pointee.ifi_obytes)
-            activeInterfaceCount += 1
         }
 
         let counters = NetworkCounters(
@@ -370,9 +365,8 @@ final class PublicSystemMonitor {
             : 0
 
         return NetworkSnapshot(
-            downloadRateBytesPerSecond: Double(receivedDelta) / elapsed,
-            uploadRateBytesPerSecond: Double(transmittedDelta) / elapsed,
-            activeInterfaceCount: activeInterfaceCount
+            downloadBytesPerSecond: Double(receivedDelta) / elapsed,
+            uploadBytesPerSecond: Double(transmittedDelta) / elapsed
         )
     }
 
@@ -390,19 +384,15 @@ final class PublicSystemMonitor {
         let totalBytes = UInt64(fileSystem.f_blocks) * blockSize
         let availableBytes = UInt64(fileSystem.f_bavail) * blockSize
         let usedBytes = totalBytes > availableBytes ? totalBytes - availableBytes : 0
-        let usagePercent: Double? = totalBytes > 0
-            ? min(100, max(0, (Double(usedBytes) / Double(totalBytes)) * 100))
-            : nil
 
         let volumeName = (try? URL(fileURLWithPath: "/").resourceValues(forKeys: [.volumeNameKey]).volumeName)
             ?? "Startup Disk"
 
         return StorageSnapshot(
             volumeName: volumeName,
-            usagePercent: usagePercent,
-            usedGB: Double(usedBytes) / 1_073_741_824.0,
-            totalGB: Double(totalBytes) / 1_073_741_824.0,
-            availableGB: Double(availableBytes) / 1_073_741_824.0
+            usedBytes: Int64(usedBytes),
+            totalBytes: Int64(totalBytes),
+            availableBytes: Int64(availableBytes)
         )
     }
 
@@ -420,15 +410,19 @@ final class PublicSystemMonitor {
         )
     }
 
+    // Apple Silicon numbers the efficiency cluster first, then the performance cluster.
     private func coreKind(for processor: Int) -> CPUCoreKind {
-        if let performanceCoreCount = hardware.performanceCoreCount, processor < performanceCoreCount {
-            return .performance
+        guard let performanceCoreCount = hardware.performanceCoreCount else {
+            return .standard
         }
 
-        if let performanceCoreCount = hardware.performanceCoreCount,
-           let efficiencyCoreCount = hardware.efficiencyCoreCount,
-           processor < performanceCoreCount + efficiencyCoreCount {
+        let efficiencyCoreCount = hardware.efficiencyCoreCount ?? 0
+        if processor < efficiencyCoreCount {
             return .efficiency
+        }
+
+        if processor < efficiencyCoreCount + performanceCoreCount {
+            return .performance
         }
 
         return .standard
