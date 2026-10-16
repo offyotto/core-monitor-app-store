@@ -41,4 +41,4 @@ The app does not request camera, microphone, contacts, photos, accessibility, in
 The app uses the network only for WeatherKit data and the required Apple Weather attribution assets when the weather feature is active.
 
 ## Contact
-coremonitor.app@gmail.com
+yottoing@xnu.is-a.dev
